@@ -20,6 +20,10 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
+html {
+  background-color: #fafafa;
+}
+
 /*Button styling reset*/
 
 button, input[type="submit"], input[type="reset"] {

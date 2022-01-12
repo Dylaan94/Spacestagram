@@ -1,3 +1,4 @@
+import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 const HeaderStyles = styled.div`
@@ -7,8 +8,8 @@ const HeaderStyles = styled.div`
     display: flex;
     border-bottom: 1px solid rgb(219, 219, 219);
     height: 60px;
-    padding-left: 10vw;
-    padding-right: 10vw;
+    padding-left: 20vw;
+    padding-right: 20vw;
   }
 
   .headerLeft,
@@ -53,14 +54,50 @@ const HeaderStyles = styled.div`
     }
 
     // reset padding to balance against logo
-    .shopifyLogoLi{
+    .shopifyLogoLi {
       padding-right: 0;
     }
   }
 `;
 
+const ControllerStyles = styled.div`
+  display: flex;
+  justify-content: center;
+
+  .container {
+    background: white;
+    margin-top: 30px;
+    width: 600px;
+    min-height: 600px;
+    border: 1px solid rgb(219, 219, 219);
+  }
+  .postHeader {
+    height: 70px;
+    border-bottom: 1px solid rgb(219, 219, 219);
+  }
+  .imageContainer {
+    min-height: 600px;
+    border-bottom: 1px solid rgb(219, 219, 219);
+  }
+
+  .postFooter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 70px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .postButtons {
+    font-size: 30px;
+    margin-left: auto;
+  }
+`;
+
 const Styles = {
   HeaderStyles: HeaderStyles,
+  ControllerStyles: ControllerStyles,
 };
 
 export default Styles;

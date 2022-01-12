@@ -3,6 +3,7 @@ import React, { Component } from "react";
 // component imports
 
 import Header from "./Header";
+import Controller from "./Controller"
 
 class Main extends Component {
   constructor(props) {
@@ -12,7 +13,9 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <Header></Header>
+            <Header></Header>
+            <Controller></Controller>
+            <Controller></Controller>
         <h1>This is the main component</h1>
       </div>
     );
