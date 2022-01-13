@@ -10,6 +10,8 @@ class Main extends Component {
     this.state = {
       nasaAPIData: {
         apodData: {},
+        roverData: [],
+        nasaImagesData: [],
       },
       likedPhotos: [],
     };
@@ -27,7 +29,8 @@ class Main extends Component {
     } else {
       Promise.all([
         fetch("http://localhost:9000/nasaAPI"),
-        fetch("http://localhost:9000/nasaRoverApi"),
+        fetch("http://localhost:9000/nasaRoverAPI"),
+        fetch("http://localhost:9000/nasaImagesAPI"),
       ])
         // map through all results and run text();
         .then((res) => {
@@ -39,13 +42,19 @@ class Main extends Component {
           ).then((data) => {
             let apodData = data[0];
             let roverData = data[1];
+            let nasaImagesData = data[2];
             localStorage.setItem("apodData", JSON.stringify(apodData)); // store to cache
             localStorage.setItem("roverData", JSON.stringify(roverData));
+            localStorage.setItem(
+              "nasaImagesData",
+              JSON.stringify(nasaImagesData)
+            );
             this.setState(
               {
                 nasaAPIData: {
                   apodData: apodData,
                   roverData: roverData,
+                  nasaImagesData: nasaImagesData,
                 },
               },
               () => {
@@ -62,11 +71,13 @@ class Main extends Component {
     console.log("loading from local storage");
     let apodData = JSON.parse(localStorage.getItem("apodData"));
     let roverData = JSON.parse(localStorage.getItem("roverData"));
+    let nasaImagesData = JSON.parse(localStorage.getItem("nasaImagesData"))
     this.setState(
       {
         nasaAPIData: {
           apodData: apodData,
           roverData: roverData,
+          nasaImagesData: nasaImagesData
         },
       },
       () => {
@@ -121,8 +132,11 @@ class Main extends Component {
   }
 
   render() {
+    let roverData = this.state.nasaAPIData.roverData;
+    let nasaImagesData = this.state.nasaAPIData.nasaImagesData;
     return (
       <div>
+        {console.log(roverData)}
         <Header
           handleViewHome={this.handleViewHome}
           handleViewLikedPhotos={this.handleViewLikedPhotos}
@@ -138,7 +152,40 @@ class Main extends Component {
           apiName={"apodData"}
           handleLikedPhoto={this.handleLikedPhoto}
         ></Controller>
-        <Controller></Controller>
+        {nasaImagesData.map(
+          ({ name, date, explanation, copyright, imageURL, id }) => (
+            <Controller
+              title={name}
+              date={date}
+              explanation={explanation}
+              copyright={copyright}
+              imageURL={imageURL}
+              key={id}
+              id={id}
+            ></Controller>
+          ))}
+
+          
+        {/* map over roverData to render multiple components */}
+        {/* {roverData.map(({ name, date, cameraFull_name, sol, id }) => (
+          <Controller
+            title={name}
+            date={date}
+            explanation={
+              "This is a photo taken by" +
+              name +
+              "on sol:" +
+              sol +
+              "also known as " +
+              date +
+              " in earth years!"
+            }
+            key={id}
+            id={id}
+          >
+            {" "}
+          </Controller>
+        ))} */}
       </div>
     );
   }
