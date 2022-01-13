@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require('cors')
 
 var nasaAPIRouter = require("./routes/nasaAPI")
+var nasaRoverAPIRouter = require("./routes/nasaRoverAPI")
 
 var app = express();
 
@@ -22,6 +23,7 @@ app.use(cors())
 
 // routes
 app.use("/nasaAPI", nasaAPIRouter)
+app.use("/nasaRoverAPI", nasaRoverAPIRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

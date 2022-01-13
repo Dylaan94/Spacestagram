@@ -15,6 +15,7 @@ class Controller extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
   }
 
   render() {
@@ -25,6 +26,8 @@ class Controller extends Component {
       copyright,
       imageURL,
       dataAccessed,
+      id,
+      apiName,
       handleLikedPhoto,
     } = this.props; // destructure props
     return (
@@ -47,7 +50,9 @@ class Controller extends Component {
                 <h2>{copyright}</h2>
                 <h3>{date}</h3>
               </div>
-              <button className="likeButton" onClick={handleLikedPhoto}>
+              <button className="likeButton" onClick={() => {
+                handleLikedPhoto(id, apiName) // sends data id to main
+              }}>
                 <p>{heartIcon}</p>
               </button>
             </div>

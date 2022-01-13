@@ -6,6 +6,7 @@ require("dotenv").config();
 // to create unique ids
 const { v1: uuidv1, v4: uuidv4 } = require("uuid");
 
+// need to add error handling
 router.get("/", (req, res, next) => {
   // call from NASA api and create an object based off data
   // API key hidden for security purposes
@@ -23,7 +24,8 @@ router.get("/", (req, res, next) => {
         copyright: response.data.copyright,
         imageURL: response.data.url,
         dataAccessed: "",
-        id: uuidv4()
+        id: uuidv4(), // create unique id
+        liked: false // initialised to false
       };
       res.send(imageObject);
     });
