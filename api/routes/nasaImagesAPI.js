@@ -17,8 +17,8 @@ router.get("/", (req, res, next) => {
     .then((response) => {
     //  res.send(response.data);
       let dataArray = [];
-      // limited to 10 images
-      for (let i = 0; i < 10; i++) {
+      // limited to 3 images
+      for (let i = 0; i < 3; i++) {
         let imageObject = {
           name: response.data.collection.items[i].data[0].title,
           date: response.data.collection.items[i].data[0].date_created,

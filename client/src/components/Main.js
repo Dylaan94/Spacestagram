@@ -71,13 +71,13 @@ class Main extends Component {
     console.log("loading from local storage");
     let apodData = JSON.parse(localStorage.getItem("apodData"));
     let roverData = JSON.parse(localStorage.getItem("roverData"));
-    let nasaImagesData = JSON.parse(localStorage.getItem("nasaImagesData"))
+    let nasaImagesData = JSON.parse(localStorage.getItem("nasaImagesData"));
     this.setState(
       {
         nasaAPIData: {
           apodData: apodData,
           roverData: roverData,
-          nasaImagesData: nasaImagesData
+          nasaImagesData: nasaImagesData,
         },
       },
       () => {
@@ -152,6 +152,7 @@ class Main extends Component {
           apiName={"apodData"}
           handleLikedPhoto={this.handleLikedPhoto}
         ></Controller>
+        {/* map over nasaImagesData to render multiple components */}
         {nasaImagesData.map(
           ({ name, date, explanation, copyright, imageURL, id }) => (
             <Controller
@@ -163,11 +164,11 @@ class Main extends Component {
               key={id}
               id={id}
             ></Controller>
-          ))}
+          )
+        )}
 
-          
         {/* map over roverData to render multiple components */}
-        {/* {roverData.map(({ name, date, cameraFull_name, sol, id }) => (
+        {roverData.map(({ name, date, cameraFull_name, cameraName, sol, id, imageURL }) => (
           <Controller
             title={name}
             date={date}
@@ -180,12 +181,14 @@ class Main extends Component {
               date +
               " in earth years!"
             }
+            imageURL={imageURL}
             key={id}
             id={id}
+
           >
             {" "}
           </Controller>
-        ))} */}
+        ))}
       </div>
     );
   }
