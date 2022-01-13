@@ -7,7 +7,7 @@ const HeaderStyles = styled.div`
   .header {
     display: flex;
     border-bottom: 1px solid rgb(219, 219, 219);
-    height: 60px;
+    height: 3.5rem;
     padding-left: 20vw;
     padding-right: 20vw;
   }
@@ -47,8 +47,8 @@ const HeaderStyles = styled.div`
 
     .shopifyLogo {
       display: flex;
-      height: 40px;
-      width: 40px;
+      height: 2.5rem;
+      width: 2.5rem;
       border-radius: 50%; // create circle around logo
       border: 1px solid rgb(219, 219, 219);
     }
@@ -63,36 +63,76 @@ const HeaderStyles = styled.div`
 const ControllerStyles = styled.div`
   display: flex;
   justify-content: center;
+  font-family: "Roboto", sans-serif;
 
   .container {
     background: white;
     margin-top: 30px;
-    width: 600px;
-    min-height: 600px;
+    width: clamp(50vw, 600px, 95vw);
+    max-height: auto;
     border: 1px solid rgb(219, 219, 219);
     border-radius: 2px;
   }
-  .postHeader {
-    height: 70px;
+
+  header {
+    display: flex;
+    align-items: center;
+    height: 4rem;
     border-bottom: 1px solid rgb(219, 219, 219);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
+
+  .postHeaderLeft {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .postHeaderRight {
+    margin-left: auto;
+    display: flex;
+    font-size: 3rem;
+    color: rgb(11, 61, 145);
+  }
+
   .imageContainer {
-    min-height: 600px;
+    // min-height: 600px;
     border-bottom: 1px solid rgb(219, 219, 219);
+    img {
+      width: 100%;
+    }
   }
 
   .postFooter {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    height: 70px;
-    padding-left: 20px;
-    padding-right: 20px;
+    height: auto;
+    padding-top: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1rem;
   }
 
   .postButtons {
-    font-size: 30px;
-    margin-left: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+    padding-bottom: 0.5rem;
+    p {
+      margin-left: auto;
+      font-size: 1.4em;
+    }
+    h2 {
+      font-weight: 900;
+      font-size: 1.2em;
+    }
+    h3 {
+      color: grey;
+    }
   }
 `;
 

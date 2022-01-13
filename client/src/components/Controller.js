@@ -28,23 +28,35 @@ class Controller extends Component {
     return (
       <Styles.ControllerStyles>
         <div className="container">
-          <div className="postHeader">
-            <h1>Image by: {copyright}</h1>
-            <h2>Image title: {title}</h2>
-            <p alt="Astronaut icon">{astronautIcon}</p>
-          </div>
+          <header className="postHeader">
+            <div className="postHeaderLeft">
+              <h1>{title}</h1>
+            </div>
+            <div className="postHeaderRight">
+              <p alt="Astronaut icon">{astronautIcon}</p>
+            </div>
+          </header>
           <div className="imageContainer">
             <img src={imageURL} alt={"image of " + title + ""}></img>
           </div>
+
+          
+
           <div className="postFooter">
-            <div className="photoInfo"> {explanation}</div>
             <div className="postButtons">
+              <div className = "metadata">
+                <h2>{copyright}</h2>
+                <h3>{date}</h3>
+              </div>
               <button className="likeButton">
-                <p>{date}</p>
-                {heartIcon}
+                <p>{heartIcon}</p>
               </button>
             </div>
+            <div className="photoInfo"> {explanation}</div>
           </div>
+
+
+
         </div>
       </Styles.ControllerStyles>
     );
