@@ -3,6 +3,9 @@ let router = express.Router();
 let axios = require("axios");
 require("dotenv").config();
 
+// to create unique ids
+const { v1: uuidv1, v4: uuidv4 } = require("uuid");
+
 router.get("/", (req, res, next) => {
   // call from NASA api and create an object based off data
   // API key hidden for security purposes
@@ -19,7 +22,8 @@ router.get("/", (req, res, next) => {
         explanation: response.data.explanation,
         copyright: response.data.copyright,
         imageURL: response.data.url,
-        dataAccessed: ""
+        dataAccessed: "",
+        id: uuidv4()
       };
       res.send(imageObject);
     });

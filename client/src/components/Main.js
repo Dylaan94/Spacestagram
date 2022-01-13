@@ -9,9 +9,11 @@ class Main extends Component {
     super(props);
     this.state = {
       apodData: {},
+      likedPhotos:[],
     };
     this.callNasaAPI = this.callNasaAPI.bind(this);
     this.loadFromLocalStorage = this.loadFromLocalStorage.bind(this);
+    this.handleLikedPhoto = this.handleLikedPhoto.bind(this);
   }
 
   callNasaAPI = () => {
@@ -51,6 +53,12 @@ class Main extends Component {
     );
   };
 
+
+  handleLikedPhoto = (e) => {
+    console.log(e.target)
+    console.log("photo liked!")
+  }
+
   componentDidMount() {
     this.callNasaAPI();
   }
@@ -66,6 +74,7 @@ class Main extends Component {
           copyright={this.state.apodData.copyright}
           imageURL={this.state.apodData.imageURL}
           dataAccessed={this.state.apodData.dataAccessed}
+          handleLikedPhoto={this.handleLikedPhoto}
         ></Controller>
         <Controller></Controller>
       </div>

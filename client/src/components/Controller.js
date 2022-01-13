@@ -16,6 +16,7 @@ class Controller extends Component {
     super(props);
     this.state = {};
   }
+
   render() {
     const {
       title,
@@ -24,6 +25,7 @@ class Controller extends Component {
       copyright,
       imageURL,
       dataAccessed,
+      handleLikedPhoto,
     } = this.props; // destructure props
     return (
       <Styles.ControllerStyles>
@@ -39,24 +41,18 @@ class Controller extends Component {
           <div className="imageContainer">
             <img src={imageURL} alt={"image of " + title + ""}></img>
           </div>
-
-          
-
           <div className="postFooter">
             <div className="postButtons">
-              <div className = "metadata">
+              <div className="metadata">
                 <h2>{copyright}</h2>
                 <h3>{date}</h3>
               </div>
-              <button className="likeButton">
+              <button className="likeButton" onClick={handleLikedPhoto}>
                 <p>{heartIcon}</p>
               </button>
             </div>
             <div className="photoInfo"> {explanation}</div>
           </div>
-
-
-
         </div>
       </Styles.ControllerStyles>
     );
