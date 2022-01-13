@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 // component imports
-
 import Header from "./Header";
 import Controller from "./Controller"
 
@@ -14,7 +13,9 @@ class Main extends Component {
   }
 
   callNasaApi = () => {
-
+    fetch("localhost:9000/nasaAPI").then((res) => {
+      console.log(res);
+    })
   }
 
   loadFromLocalStorage = () => {
@@ -31,7 +32,6 @@ class Main extends Component {
             <Header></Header>
             <Controller></Controller>
             <Controller></Controller>
-        <h1>This is the main component</h1>
       </div>
     );
   }
