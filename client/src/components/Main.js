@@ -14,6 +14,7 @@ class Main extends Component {
         nasaImagesData: [],
       },
       likedPhotos: [],
+      pageStatus: "home",
     };
     this.callNasaAPI = this.callNasaAPI.bind(this);
     this.loadFromLocalStorage = this.loadFromLocalStorage.bind(this);
@@ -168,23 +169,25 @@ class Main extends Component {
         )}
 
         {/* map over roverData to render multiple components */}
-        {roverData.map(({ name, date, cameraFull_name, cameraName, sol, id, imageURL }) => (
+        {roverData.map(({ name, date, cameraFull_Name, sol, id, imageURL }) => (
           <Controller
-            title={name}
+            title={name + " - day(Sol): " + sol}
             date={date}
             explanation={
-              "This is a photo taken by" +
+              "This is a photo taken by the " +
+              cameraFull_Name +
+              " from The " +
               name +
-              "on sol:" +
+              " Rover " +
+              "on Sol:" +
               sol +
-              "also known as " +
+              " or " +
               date +
-              " in earth years!"
+              " in Earth years! Sol comes from the latin word for the sun, and refers to a solar day on Mars."
             }
             imageURL={imageURL}
             key={id}
             id={id}
-
           >
             {" "}
           </Controller>
