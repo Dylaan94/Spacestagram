@@ -11,7 +11,7 @@ import { faUserAstronaut } from "@fortawesome/free-solid-svg-icons";
 const heartIcon = <FontAwesomeIcon icon={faHeart} />;
 const astronautIcon = <FontAwesomeIcon icon={faUserAstronaut} />;
 
-class Controller extends Component {
+class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -31,7 +31,7 @@ class Controller extends Component {
       handleLikedPhoto,
     } = this.props; // destructure props
     return (
-      <Styles.ControllerStyles>
+      <Styles.PostStyles>
         <div className="container">
           <header className="postHeader">
             <div className="postHeaderLeft">
@@ -59,9 +59,9 @@ class Controller extends Component {
             <div className="photoInfo"> {explanation}</div>
           </div>
         </div>
-      </Styles.ControllerStyles>
+      </Styles.PostStyles>
     );
   }
 }
 
-export default Controller;
+export default Post;

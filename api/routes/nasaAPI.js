@@ -17,7 +17,7 @@ router.get("/", (req, res, next) => {
         ""
     )
     .then((response) => {
-      let imageObject = {
+      let dataArray = [{
         title: response.data.title,
         date: response.data.date,
         explanation: response.data.explanation,
@@ -26,8 +26,8 @@ router.get("/", (req, res, next) => {
         dataAccessed: "",
         id: uuidv4(), // create unique id
         liked: false // initialised to false
-      };
-      res.send(imageObject);
+      }];
+      res.send(dataArray);
     });
 });
 

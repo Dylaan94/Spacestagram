@@ -60,7 +60,7 @@ const HeaderStyles = styled.div`
   }
 `;
 
-const ControllerStyles = styled.div`
+const PostStyles = styled.div`
   display: flex;
   justify-content: center;
   font-family: "Roboto", sans-serif;
@@ -138,7 +138,7 @@ const ControllerStyles = styled.div`
 
 const Styles = {
   HeaderStyles: HeaderStyles,
-  ControllerStyles: ControllerStyles,
+  PostStyles: PostStyles,
 };
 
 export default Styles;
