@@ -86,6 +86,10 @@ const PostStyles = styled.div`
   .postHeaderLeft {
     font-size: 1.2rem;
     font-weight: 600;
+    h2 {
+      font-size: 0.9rem;
+      color: #797979;
+    }
   }
 
   .postHeaderRight {

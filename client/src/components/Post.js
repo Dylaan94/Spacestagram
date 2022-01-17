@@ -29,6 +29,7 @@ class Post extends Component {
       id,
       likedStatus,
       apiName,
+      apiFullName,
       handleLikedPhoto,
     } = this.props; // destructure props
     return (
@@ -37,6 +38,7 @@ class Post extends Component {
           <header className="postHeader">
             <div className="postHeaderLeft">
               <h1>{title}</h1>
+              <h2>Powered by NASA's {apiFullName} API</h2>
             </div>
             <div className="postHeaderRight">
               <p alt="Astronaut icon">{astronautIcon}</p>

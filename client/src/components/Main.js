@@ -4,12 +4,6 @@ import React, { Component } from "react";
 import Header from "./Header";
 import Post from "./Post";
 
-//fontawesome imports
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-
-const heartIcon = <FontAwesomeIcon icon={faHeart} />;
-
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -116,8 +110,9 @@ class Main extends Component {
     });
   };
 
+  // view homepage & view liked photos
+  // sets to true so that the posts components can be dynamically rendered
   handleViewHome = () => {
-    console.log("view home");
     this.setState(
       {
         isHome: true,
@@ -128,8 +123,8 @@ class Main extends Component {
     );
   };
 
+  // view liked photos
   handleViewLikedPhotos = () => {
-    console.log("view liked photos");
     this.setState(
       {
         isHome: false,
@@ -145,10 +140,8 @@ class Main extends Component {
   }
 
   render() {
-    let apodData = this.state.nasaAPIData.apodData;
-    let roverData = this.state.nasaAPIData.roverData;
-    let nasaImagesData = this.state.nasaAPIData.nasaImagesData;
-    let isHome = this.state.isHome;
+    const { apodData, roverData, nasaImagesData } = this.state.nasaAPIData 
+    const isHome = this.state.isHome;
 
     return (
       <div>
@@ -162,8 +155,8 @@ class Main extends Component {
         currently array only has 1 item, but written with map for
         maintainability and upgrade purposes */}
 
-        {/* When isHome is true, renders all posts, when false renders
-        liked photos */}
+        {/* if isHome returns true, all posts are rendered. 
+        if false returns all liked photos */}
         {isHome
           ? apodData.map(
               ({
@@ -185,6 +178,7 @@ class Main extends Component {
                   id={id}
                   likedStatus={liked}
                   apiName={"apodData"}
+                  apiFullName={"Astrology Picture of the Day"}
                   handleLikedPhoto={this.handleLikedPhoto}
                 ></Post>
               )
@@ -211,6 +205,7 @@ class Main extends Component {
                     id={id}
                     likedStatus={liked}
                     apiName={"apodData"}
+                    apiFullName={"Astrology Picture of the Day"}
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
                 )
@@ -230,6 +225,7 @@ class Main extends Component {
                   id={id}
                   likedStatus={liked}
                   apiName={"nasaImagesData"}
+                  apiFullName={"Image and Video Library"}
                   handleLikedPhoto={this.handleLikedPhoto}
                 ></Post>
               )
@@ -258,6 +254,7 @@ class Main extends Component {
                     id={id}
                     likedStatus={liked}
                     apiName={"nasaImagesData"}
+                    apiFullName={"Image and Video Library"}
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
                 )
@@ -287,6 +284,7 @@ class Main extends Component {
                   id={id}
                   likedStatus={liked}
                   apiName={"roverData"}
+                  apiFullName={"Mars Rover Photos"}
                   handleLikedPhoto={this.handleLikedPhoto}
                 ></Post>
               )
@@ -315,6 +313,7 @@ class Main extends Component {
                     id={id}
                     likedStatus={liked}
                     apiName={"roverData"}
+                    apiFullName={"Mars Rover Photos"}
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
                 )
