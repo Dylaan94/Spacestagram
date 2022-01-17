@@ -3,20 +3,21 @@ import Styles from "./styles/Styles";
 
 // fontawesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faUserAstronaut } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import { faUserAstronaut, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 // fontawesome icons
 
-const heartIcon = <FontAwesomeIcon icon={faHeart} />;
+const thumbIcon = <FontAwesomeIcon icon={faThumbsUp} />;
+const heartSolidIcon = <FontAwesomeIcon icon={faHeart} />;
 const astronautIcon = <FontAwesomeIcon icon={faUserAstronaut} />;
 
 class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-
   }
+
 
   render() {
     const {
@@ -25,8 +26,8 @@ class Post extends Component {
       explanation,
       copyright,
       imageURL,
-      dataAccessed,
       id,
+      likedStatus,
       apiName,
       handleLikedPhoto,
     } = this.props; // destructure props
@@ -50,10 +51,14 @@ class Post extends Component {
                 <h2>{copyright}</h2>
                 <h3>{date}</h3>
               </div>
-              <button className="likeButton" onClick={() => {
-                handleLikedPhoto(id, apiName) // sends data id to main
-              }}>
-                <p>{heartIcon}</p>
+              <button
+                className="likeButton"
+                onClick={() => {
+                  handleLikedPhoto( id, apiName); // sends data id to main
+                }}
+              >
+                {/* renders thumb for unliked, heart for liked */}
+                {likedStatus ? <p className="heartIcon">{heartSolidIcon}</p> : <p>{thumbIcon}</p>}
               </button>
             </div>
             <div className="photoInfo"> {explanation}</div>

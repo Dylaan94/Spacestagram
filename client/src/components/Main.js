@@ -4,6 +4,12 @@ import React, { Component } from "react";
 import Header from "./Header";
 import Post from "./Post";
 
+//fontawesome imports
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
+const heartIcon = <FontAwesomeIcon icon={faHeart} />;
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +19,6 @@ class Main extends Component {
         roverData: [],
         nasaImagesData: [],
       },
-      likedPhotos: [],
       isHome: true, // page status - home or liked
     };
     this.callNasaAPI = this.callNasaAPI.bind(this);
@@ -88,10 +93,9 @@ class Main extends Component {
   };
 
   handleLikedPhoto = (id, apiName) => {
+    // creates copy of state and updates liked state
     let arrayPosition;
-
-    // update state with liked status
-    // creates copy of state, updates liked to true and then sets
+    let newState = this.state;
 
     // checks id and returns array position
     for (let i = 0; i < this.state.nasaAPIData[apiName].length; i++) {
@@ -100,9 +104,12 @@ class Main extends Component {
         console.log("the position in the array is" + i);
       }
     }
-    // creates new state object and set to true
-    let newState = this.state;
-    newState.nasaAPIData[apiName][arrayPosition].liked = true;
+
+    if (this.state.nasaAPIData[apiName][arrayPosition].liked === true) {
+      newState.nasaAPIData[apiName][arrayPosition].liked = false;
+    } else {
+      newState.nasaAPIData[apiName][arrayPosition].liked = true;
+    }
 
     this.setState(newState, () => {
       console.log(this.state); // callback to check state
@@ -165,8 +172,8 @@ class Main extends Component {
                 explanation,
                 copyright,
                 imageURL,
-                dateAccessed,
                 id,
+                liked,
               }) => (
                 <Post
                   title={title}
@@ -174,9 +181,9 @@ class Main extends Component {
                   explanation={explanation}
                   copyright={copyright}
                   imageURL={imageURL}
-                  dateAccessed={dateAccessed}
                   key={id}
                   id={id}
+                  likedStatus={liked}
                   apiName={"apodData"}
                   handleLikedPhoto={this.handleLikedPhoto}
                 ></Post>
@@ -191,8 +198,8 @@ class Main extends Component {
                   explanation,
                   copyright,
                   imageURL,
-                  dateAccessed,
                   id,
+                  liked,
                 }) => (
                   <Post
                     title={title}
@@ -200,9 +207,9 @@ class Main extends Component {
                     explanation={explanation}
                     copyright={copyright}
                     imageURL={imageURL}
-                    dateAccessed={dateAccessed}
                     key={id}
                     id={id}
+                    likedStatus={liked}
                     apiName={"apodData"}
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
@@ -212,7 +219,7 @@ class Main extends Component {
         {/* map over nasaImagesData to render components */}
         {isHome
           ? nasaImagesData.map(
-              ({ name, date, explanation, copyright, imageURL, id }) => (
+              ({ name, date, explanation, copyright, imageURL, id, liked }) => (
                 <Post
                   title={name}
                   date={date}
@@ -221,6 +228,7 @@ class Main extends Component {
                   imageURL={imageURL}
                   key={id}
                   id={id}
+                  likedStatus={liked}
                   apiName={"nasaImagesData"}
                   handleLikedPhoto={this.handleLikedPhoto}
                 ></Post>
@@ -230,24 +238,35 @@ class Main extends Component {
             // liked items then mapped as components
             nasaImagesData
               .filter((item) => item.liked)
-              .map(({ name, date, explanation, copyright, imageURL, id }) => (
-                <Post
-                  title={name}
-                  date={date}
-                  explanation={explanation}
-                  copyright={copyright}
-                  imageURL={imageURL}
-                  key={id}
-                  id={id}
-                  apiName={"nasaImagesData"}
-                  handleLikedPhoto={this.handleLikedPhoto}
-                ></Post>
-              ))}
+              .map(
+                ({
+                  name,
+                  date,
+                  explanation,
+                  copyright,
+                  imageURL,
+                  id,
+                  liked,
+                }) => (
+                  <Post
+                    title={name}
+                    date={date}
+                    explanation={explanation}
+                    copyright={copyright}
+                    imageURL={imageURL}
+                    key={id}
+                    id={id}
+                    likedStatus={liked}
+                    apiName={"nasaImagesData"}
+                    handleLikedPhoto={this.handleLikedPhoto}
+                  ></Post>
+                )
+              )}
 
         {/* map over roverData to render components */}
         {isHome
           ? roverData.map(
-              ({ name, date, cameraFull_Name, sol, id, imageURL }) => (
+              ({ name, date, cameraFull_Name, sol, id, imageURL, liked }) => (
                 <Post
                   title={name + " - day(Sol): " + sol}
                   date={date}
@@ -266,6 +285,7 @@ class Main extends Component {
                   imageURL={imageURL}
                   key={id}
                   id={id}
+                  likedStatus={liked}
                   apiName={"roverData"}
                   handleLikedPhoto={this.handleLikedPhoto}
                 ></Post>
@@ -273,29 +293,32 @@ class Main extends Component {
             )
           : roverData
               .filter((item) => item.liked)
-              .map(({ name, date, cameraFull_Name, sol, id, imageURL }) => (
-                <Post
-                  title={name + " - day(Sol): " + sol}
-                  date={date}
-                  explanation={
-                    "This is a photo taken by the " +
-                    cameraFull_Name +
-                    " from The " +
-                    name +
-                    " Rover " +
-                    "on Sol:" +
-                    sol +
-                    " or " +
-                    date +
-                    " in Earth years! Sol comes from the latin word for the sun, and refers to a solar day on Mars."
-                  }
-                  imageURL={imageURL}
-                  key={id}
-                  id={id}
-                  apiName={"roverData"}
-                  handleLikedPhoto={this.handleLikedPhoto}
-                ></Post>
-              ))}
+              .map(
+                ({ name, date, cameraFull_Name, sol, id, imageURL, liked }) => (
+                  <Post
+                    title={name + " - day(Sol): " + sol}
+                    date={date}
+                    explanation={
+                      "This is a photo taken by the " +
+                      cameraFull_Name +
+                      " from The " +
+                      name +
+                      " Rover " +
+                      "on Sol:" +
+                      sol +
+                      " or " +
+                      date +
+                      " in Earth years! Sol comes from the latin word for the sun, and refers to a solar day on Mars."
+                    }
+                    imageURL={imageURL}
+                    key={id}
+                    id={id}
+                    likedStatus={liked}
+                    apiName={"roverData"}
+                    handleLikedPhoto={this.handleLikedPhoto}
+                  ></Post>
+                )
+              )}
       </div>
     );
   }

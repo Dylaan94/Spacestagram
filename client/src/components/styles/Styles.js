@@ -134,6 +134,10 @@ const PostStyles = styled.div`
       color: grey;
     }
   }
+
+  .heartIcon {
+    color: #e63946;
+  }
 `;
 
 const Styles = {
