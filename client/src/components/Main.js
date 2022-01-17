@@ -14,7 +14,7 @@ class Main extends Component {
         nasaImagesData: [],
       },
       likedPhotos: [],
-      pageStatus: "home",
+      isHome: true, // page status - home or liked
     };
     this.callNasaAPI = this.callNasaAPI.bind(this);
     this.loadFromLocalStorage = this.loadFromLocalStorage.bind(this);
@@ -96,7 +96,7 @@ class Main extends Component {
       let newState = this.state;
       newState.nasaAPIData.apodData.liked = true;
 
-      this.setState({ newState }, () => {
+      this.setState(newState, () => {
         console.log(this.state); // callback to check state
       });
     } else {
@@ -111,7 +111,7 @@ class Main extends Component {
       let newState = this.state;
       newState.nasaAPIData[apiName][arrayPosition].liked = true;
 
-      this.setState({ newState }, () => {
+      this.setState(newState, () => {
         console.log(this.state); // callback to check state
       });
     }
@@ -119,20 +119,26 @@ class Main extends Component {
 
   handleViewHome = () => {
     console.log("view home");
-    this.setState({
-      pageStatus: "home",
-    }, () => {
-        console.log(this.state)
-    });
+    this.setState(
+      {
+        isHome: true,
+      },
+      () => {
+        console.log(this.state);
+      }
+    );
   };
 
   handleViewLikedPhotos = () => {
     console.log("view liked photos");
-    this.setState({
-      pageStatus: "liked",
-    }, () => {
+    this.setState(
+      {
+        isHome: false,
+      },
+      () => {
         console.log(this.state);
-    });
+      }
+    );
   };
 
   componentDidMount() {
@@ -142,6 +148,8 @@ class Main extends Component {
   render() {
     let roverData = this.state.nasaAPIData.roverData;
     let nasaImagesData = this.state.nasaAPIData.nasaImagesData;
+    let isHome = this.state.isHome;
+
     return (
       <div>
         {console.log(roverData)}
@@ -149,58 +157,112 @@ class Main extends Component {
           handleViewHome={this.handleViewHome}
           handleViewLikedPhotos={this.handleViewLikedPhotos}
         ></Header>
-        <Controller
-          title={this.state.nasaAPIData.apodData.title}
-          date={this.state.nasaAPIData.apodData.date}
-          explanation={this.state.nasaAPIData.apodData.explanation}
-          copyright={this.state.nasaAPIData.apodData.copyright}
-          imageURL={this.state.nasaAPIData.apodData.imageURL}
-          dataAccessed={this.state.nasaAPIData.apodData.dataAccessed}
-          id={this.state.nasaAPIData.apodData.id}
-          apiName={"apodData"}
-          handleLikedPhoto={this.handleLikedPhoto}
-        ></Controller>
-        {/* map over nasaImagesData to render multiple components */}
-        {nasaImagesData.map(
-          ({ name, date, explanation, copyright, imageURL, id }) => (
-            <Controller
-              title={name}
-              date={date}
-              explanation={explanation}
-              copyright={copyright}
-              imageURL={imageURL}
-              key={id}
-              id={id}
-              apiName={"nasaImagesData"}
-              handleLikedPhoto={this.handleLikedPhoto}
-            ></Controller>
-          )
-        )}
 
-        {/* map over roverData to render multiple components */}
-        {roverData.map(({ name, date, cameraFull_Name, sol, id, imageURL }) => (
+        {isHome ? (
+          // renders pic of the day
           <Controller
-            title={name + " - day(Sol): " + sol}
-            date={date}
-            explanation={
-              "This is a photo taken by the " +
-              cameraFull_Name +
-              " from The " +
-              name +
-              " Rover " +
-              "on Sol:" +
-              sol +
-              " or " +
-              date +
-              " in Earth years! Sol comes from the latin word for the sun, and refers to a solar day on Mars."
-            }
-            imageURL={imageURL}
-            key={id}
-            id={id}
-            apiName={"roverData"}
+            title={this.state.nasaAPIData.apodData.title}
+            date={this.state.nasaAPIData.apodData.date}
+            explanation={this.state.nasaAPIData.apodData.explanation}
+            copyright={this.state.nasaAPIData.apodData.copyright}
+            imageURL={this.state.nasaAPIData.apodData.imageURL}
+            dataAccessed={this.state.nasaAPIData.apodData.dataAccessed}
+            id={this.state.nasaAPIData.apodData.id}
+            apiName={"apodData"}
             handleLikedPhoto={this.handleLikedPhoto}
           ></Controller>
-        ))}
+        ) : (
+          <div>no pix atm</div>
+        )}
+
+        {/* map over nasaImagesData to render components */}
+        {isHome
+          ? nasaImagesData.map(
+              ({ name, date, explanation, copyright, imageURL, id }) => (
+                <Controller
+                  title={name}
+                  date={date}
+                  explanation={explanation}
+                  copyright={copyright}
+                  imageURL={imageURL}
+                  key={id}
+                  id={id}
+                  apiName={"nasaImagesData"}
+                  handleLikedPhoto={this.handleLikedPhoto}
+                ></Controller>
+              )
+            )
+          : // when isHome is false
+            // filter through nasaImages data and creates new array of liked items
+            // liked items then mapped as components
+            nasaImagesData
+              .filter((item) => item.liked)
+              .map(({ name, date, explanation, copyright, imageURL, id }) => (
+                <Controller
+                  title={name}
+                  date={date}
+                  explanation={explanation}
+                  copyright={copyright}
+                  imageURL={imageURL}
+                  key={id}
+                  id={id}
+                  apiName={"nasaImagesData"}
+                  handleLikedPhoto={this.handleLikedPhoto}
+                ></Controller>
+              ))}
+
+        {/* map over roverData to render components */}
+        {isHome
+          ? roverData.map(
+              ({ name, date, cameraFull_Name, sol, id, imageURL }) => (
+                <Controller
+                  title={name + " - day(Sol): " + sol}
+                  date={date}
+                  explanation={
+                    "This is a photo taken by the " +
+                    cameraFull_Name +
+                    " from The " +
+                    name +
+                    " Rover " +
+                    "on Sol:" +
+                    sol +
+                    " or " +
+                    date +
+                    " in Earth years! Sol comes from the latin word for the sun, and refers to a solar day on Mars."
+                  }
+                  imageURL={imageURL}
+                  key={id}
+                  id={id}
+                  apiName={"roverData"}
+                  handleLikedPhoto={this.handleLikedPhoto}
+                ></Controller>
+              )
+            )
+          : roverData
+              .filter((item) => item.liked)
+              .map(({ name, date, cameraFull_Name, sol, id, imageURL }) => (
+                <Controller
+                  title={name + " - day(Sol): " + sol}
+                  date={date}
+                  explanation={
+                    "This is a photo taken by the " +
+                    cameraFull_Name +
+                    " from The " +
+                    name +
+                    " Rover " +
+                    "on Sol:" +
+                    sol +
+                    " or " +
+                    date +
+                    " in Earth years! Sol comes from the latin word for the sun, and refers to a solar day on Mars."
+                  }
+                  imageURL={imageURL}
+                  key={id}
+                  id={id}
+                  apiName={"roverData"}
+                  handleLikedPhoto={this.handleLikedPhoto}
+                ></Controller>
+              ))}
       </div>
     );
   }
