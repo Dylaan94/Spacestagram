@@ -91,7 +91,7 @@ class Main extends Component {
     let arrayPosition;
 
     // update state with liked status
-    // creates copy of state, updates status to true and then sets
+    // creates copy of state, updates liked to true and then sets
     if (apiName === "apodData") {
       let newState = this.state;
       newState.nasaAPIData.apodData.liked = true;
@@ -107,52 +107,32 @@ class Main extends Component {
           console.log("the position in the array is" + i);
         }
       }
-      // create new state object and set to true
+      // creates new state object and set to true
       let newState = this.state;
       newState.nasaAPIData[apiName][arrayPosition].liked = true;
 
-      this.setState(
-        {
-          newState,
-        },
-        () => {
-          console.log(this.state);
-        }
-      );
-
-      // this.setState(
-      //   (prevState) => ({
-      //     nasaAPIData: {
-      //       ...prevState.nasaAPIData,
-      //       apiName: {
-      //         ...prevState.nasaAPIData,
-      //         test: "hi",
-
-      //         }
-      //       }
-
-      //   }), () => {
-      //     console.log(this.state); // callback to check state
-      //   }
-      // )
-
-      // fill in for different api types here
+      this.setState({ newState }, () => {
+        console.log(this.state); // callback to check state
+      });
     }
-
-    // for (let i = 0; i < this.state.nasaAPIData.apiName.length; i++) {
-    //   if (this.state.nasaAPIData.apiName[i].id === id) {
-
-    //   }
-
-    // }
   };
 
   handleViewHome = () => {
     console.log("view home");
+    this.setState({
+      pageStatus: "home",
+    }, () => {
+        console.log(this.state)
+    });
   };
 
   handleViewLikedPhotos = () => {
     console.log("view liked photos");
+    this.setState({
+      pageStatus: "liked",
+    }, () => {
+        console.log(this.state);
+    });
   };
 
   componentDidMount() {
@@ -219,9 +199,7 @@ class Main extends Component {
             id={id}
             apiName={"roverData"}
             handleLikedPhoto={this.handleLikedPhoto}
-          >
-            {" "}
-          </Controller>
+          ></Controller>
         ))}
       </div>
     );
