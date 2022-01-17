@@ -88,27 +88,54 @@ class Main extends Component {
   };
 
   handleLikedPhoto = (id, apiName) => {
-    console.log(id);
-    console.log(apiName);
-    console.log("photo liked!");
+    let arrayPosition;
 
     // update state with liked status
+    // creates copy of state, updates status to true and then sets
     if (apiName === "apodData") {
+      let newState = this.state;
+      newState.nasaAPIData.apodData.liked = true;
+
+      this.setState({ newState }, () => {
+        console.log(this.state); // callback to check state
+      });
+    } else {
+      // checks id and returns array position
+      for (let i = 0; i < this.state.nasaAPIData[apiName].length; i++) {
+        if (this.state.nasaAPIData[apiName][i].id === id) {
+          arrayPosition = i;
+          console.log("the position in the array is" + i);
+        }
+      }
+      // create new state object and set to true
+      let newState = this.state;
+      newState.nasaAPIData[apiName][arrayPosition].liked = true;
+
       this.setState(
-        (prevState) => ({
-          nasaAPIData: {
-            ...prevState.nasaAPIData,
-            apodData: {
-              ...prevState.nasaAPIData.apodData,
-              liked: true,
-            },
-          },
-        }),
+        {
+          newState,
+        },
         () => {
           console.log(this.state);
         }
       );
-    } else {
+
+      // this.setState(
+      //   (prevState) => ({
+      //     nasaAPIData: {
+      //       ...prevState.nasaAPIData,
+      //       apiName: {
+      //         ...prevState.nasaAPIData,
+      //         test: "hi",
+
+      //         }
+      //       }
+
+      //   }), () => {
+      //     console.log(this.state); // callback to check state
+      //   }
+      // )
+
       // fill in for different api types here
     }
 
@@ -164,6 +191,8 @@ class Main extends Component {
               imageURL={imageURL}
               key={id}
               id={id}
+              apiName={"nasaImagesData"}
+              handleLikedPhoto={this.handleLikedPhoto}
             ></Controller>
           )
         )}
@@ -188,6 +217,8 @@ class Main extends Component {
             imageURL={imageURL}
             key={id}
             id={id}
+            apiName={"roverData"}
+            handleLikedPhoto={this.handleLikedPhoto}
           >
             {" "}
           </Controller>

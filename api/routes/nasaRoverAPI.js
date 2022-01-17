@@ -29,7 +29,8 @@ router.get("/", (req, res, next) => {
           cameraFull_Name: response.data.photos[i].camera.full_name,
           cameraName: response.data.photos[i].name,
           imageURL: response.data.photos[i].img_src,
-          id: uuidv4(),
+          id: uuidv4(), // create unique id
+          liked: false, // initialised to false
         };
         dataArray.push(imageObject);
       }

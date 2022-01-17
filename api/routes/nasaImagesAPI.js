@@ -25,7 +25,8 @@ router.get("/", (req, res, next) => {
           explanation: response.data.collection.items[i].data[0].description,
           copyright: response.data.collection.items[i].data[0].photographer,
           imageURL: response.data.collection.items[i].links[0].href,
-          id: uuidv4(),
+          id: uuidv4(), // create unique id
+          liked: false, // initialised to false
         };
         dataArray.push(imageObject);
       }
