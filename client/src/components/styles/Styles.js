@@ -1,4 +1,3 @@
-import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 const HeaderStyles = styled.div`
@@ -144,9 +143,37 @@ const PostStyles = styled.div`
   }
 `;
 
+const PopupStyles = styled.div`
+  .popup-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background: #00000050;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  }
+
+  .popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 70%;
+    max-height: 70vh;
+    background: white;
+    border: 1px solid rgb(219, 219, 219);
+    border-radius: 5px;
+    overflow: auto;
+  }
+`;
+
 const Styles = {
   HeaderStyles: HeaderStyles,
   PostStyles: PostStyles,
+  PopupStyles: PopupStyles
 };
 
 export default Styles;

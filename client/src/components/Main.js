@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 // component imports
 import Header from "./Header";
+import Popup from "./Popup";
 import Post from "./Post";
 
 class Main extends Component {
@@ -14,12 +15,14 @@ class Main extends Component {
         nasaImagesData: [],
       },
       isHome: true, // page status - home or liked
+      showPopup: true,
     };
     this.callNasaAPI = this.callNasaAPI.bind(this);
     this.loadFromLocalStorage = this.loadFromLocalStorage.bind(this);
     this.handleLikedPhoto = this.handleLikedPhoto.bind(this);
     this.handleViewHome = this.handleViewHome.bind(this);
     this.handleViewLikedPhotos = this.handleViewLikedPhotos.bind(this);
+    this.handlePopup = this.handlePopup.bind(this);
   }
 
   callNasaAPI = () => {
@@ -86,6 +89,15 @@ class Main extends Component {
     );
   };
 
+  handlePopup = () => {
+    console.log("popup button clicked");
+    if (this.state.showPopup === true) {
+      this.setState({ showPopup: false });
+    } else {
+      this.setState({ showPopup: true });
+    }
+  };
+
   handleLikedPhoto = (id, apiName) => {
     // creates copy of state and updates liked state
     let arrayPosition;
@@ -140,12 +152,13 @@ class Main extends Component {
   }
 
   render() {
-    const { apodData, roverData, nasaImagesData } = this.state.nasaAPIData 
-    const isHome = this.state.isHome;
+    const { apodData, roverData, nasaImagesData } = this.state.nasaAPIData;
+    const { isHome, showPopup } = this.state;
 
     return (
       <div>
-        {console.log(roverData)}
+        {showPopup ? <Popup handlePopup={this.handlePopup}></Popup> : null}
+
         <Header
           handleViewHome={this.handleViewHome}
           handleViewLikedPhotos={this.handleViewLikedPhotos}
@@ -277,7 +290,10 @@ class Main extends Component {
                     sol +
                     " or " +
                     date +
-                    " in Earth years! Sol comes from the latin word for the sun, and refers to a solar day on Mars."
+                    " in Earth years! Sol comes from the latin word for the sun," +
+                    " and refers to a solar day on Mars." +
+                    " This photo is from NASA's Mars Rover Photos API which is updated daily" +
+                    " and can be accessed by clicking here."
                   }
                   imageURL={imageURL}
                   key={id}
@@ -306,7 +322,10 @@ class Main extends Component {
                       sol +
                       " or " +
                       date +
-                      " in Earth years! Sol comes from the latin word for the sun, and refers to a solar day on Mars."
+                      " in Earth years! Sol comes from the latin word for the sun," +
+                      " and refers to a solar day on Mars." +
+                      " This photo is from NASA's Mars Rover Photos API which is updated daily" +
+                      " and can be accessed by clicking here."
                     }
                     imageURL={imageURL}
                     key={id}
