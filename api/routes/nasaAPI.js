@@ -7,9 +7,14 @@ require("dotenv").config();
 const { v1: uuidv1, v4: uuidv4 } = require("uuid");
 
 // need to add error handling
-router.get("/", (req, res, next) => {
+// needs to be post for axios
+router.post("/", (req, res, next) => {
   // call from NASA api and create an object based off data
   // API key hidden for security purposes
+
+  console.log(req.body)
+
+  //res.send(req)
   axios
     .get(
       "https://api.nasa.gov/planetary/apod?api_key=" +
@@ -27,8 +32,9 @@ router.get("/", (req, res, next) => {
         id: uuidv4(), // create unique id
         liked: false // initialised to false
       }];
-      res.send(dataArray);
+      //res.send(dataArray);
     });
 });
+
 
 module.exports = router;

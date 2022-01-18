@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 // component imports
 import Header from "./Header";
 import Popup from "./Popup";
 import Post from "./Post";
+import SearchForm from "./SearchForm";
 
 class Main extends Component {
   constructor(props) {
@@ -14,8 +16,10 @@ class Main extends Component {
         roverData: [],
         nasaImagesData: [],
       },
+      formData: {},
       isHome: true, // page status - home or liked
-      showPopup: true,
+      showPopup: false, // false for dev CHANGE
+      showForm: true,
     };
     this.callNasaAPI = this.callNasaAPI.bind(this);
     this.loadFromLocalStorage = this.loadFromLocalStorage.bind(this);
@@ -23,6 +27,9 @@ class Main extends Component {
     this.handleViewHome = this.handleViewHome.bind(this);
     this.handleViewLikedPhotos = this.handleViewLikedPhotos.bind(this);
     this.handlePopup = this.handlePopup.bind(this);
+    this.apiTest = this.apiTest.bind(this);
+    this.handleFormUpdate = this.handleFormUpdate.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   callNasaAPI = () => {
@@ -68,6 +75,14 @@ class Main extends Component {
           });
         });
     }
+  };
+
+  apiTest = () => {
+    let object = { name: "dylan" };
+    console.log("hi");
+    axios.post("http://localhost:9000/nasaAPI", object).then(() => {
+      console.log("sent");
+    });
   };
 
   loadFromLocalStorage = () => {
@@ -147,16 +162,44 @@ class Main extends Component {
     );
   };
 
+  handleFormUpdate = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState(
+      (prevState) => ({
+        formData: {
+          ...prevState.formData,
+          [name]: value,
+        },
+      }),
+      () => {
+        console.log(this.state);
+      }
+    );
+  };
+
+  handleFormSubmit = () => {
+    console.log("form submitted roadman")
+  };
+
   componentDidMount() {
     this.callNasaAPI();
+    //this.apiTest();
   }
 
   render() {
     const { apodData, roverData, nasaImagesData } = this.state.nasaAPIData;
-    const { isHome, showPopup } = this.state;
+    const { isHome, showPopup, showForm } = this.state;
 
     return (
       <div>
+        {showForm ? (
+          <SearchForm
+            handleFormUpdate={this.handleFormUpdate}
+            handleFormSubmit={this.handleFormSubmit}
+          ></SearchForm>
+        ) : null}
         {showPopup ? <Popup handlePopup={this.handlePopup}></Popup> : null}
 
         <Header
