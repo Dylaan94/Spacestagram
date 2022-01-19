@@ -172,15 +172,26 @@ const PopupStyles = styled.div`
     overflow: auto;
 
     .popup-header {
-      height: 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 20vh;
       width: 100%;
       background: rgb(219, 219, 219);
+      font-family: "Grand Hotel", cursive;
+      h1 {
+        margin-bottom: 3vh;
+        font-size: 8vh;
+        color: #008060;
+      }
     }
 
     .popup-container {
       display: flex;
       flex-direction: column;
-      height: 65%;
+      width: 100%;
+      min-height: 65vh;
       h1 {
         font-size: 2em;
         font-weight: 600;
@@ -190,6 +201,7 @@ const PopupStyles = styled.div`
 
       p {
         color: #6b7177;
+        text-align: center;
       }
 
       h2 {
@@ -197,27 +209,31 @@ const PopupStyles = styled.div`
         font-weight: 600;
         padding-top: 1rem;
         padding-bottom: 1rem;
+        padding-left: 10vw;
       }
 
       li {
         color: #6b7177;
+        padding-left: 10vw;
       }
     }
 
     .popup-footer {
       display: flex;
       flex-direction: row;
-      height: 15%;
+      height: 15vh;
       width: 100%;
+      margin-top: auto;
 
       .popup-footer-left,
       .popup-footer-right {
         display: flex;
         justify-content: center;
         align-items: center;
+        background: white;
         width: 50%;
         border-top: solid 1px rgb(219, 219, 219);
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 900;
       }
 

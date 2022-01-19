@@ -4,10 +4,11 @@ import Styles from "./styles/Styles";
 
 // fontawesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faHome } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faHome, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const homeIcon = <FontAwesomeIcon icon={faHome} />;
 const heartIcon = <FontAwesomeIcon icon={faHeart} />;
+const searchIcon = <FontAwesomeIcon icon={faSearch} />;
 
 class Header extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Header extends Component {
     this.state = {};
   }
   render() {
-    const { handleViewHome, handleViewLikedPhotos } = this.props; // deconstruct props
+    const { handleViewHome, handleViewLikedPhotos, handleViewSearchForm } = this.props; // deconstruct props
     return (
       <Styles.HeaderStyles>
         <div className="header">
@@ -24,6 +25,11 @@ class Header extends Component {
           </div>
           <div className="headerRight">
             <ul>
+              <li>
+                <button className="searchButton" onClick ={handleViewSearchForm}>
+                  {searchIcon}
+                </button>
+              </li>
               <li>
                 <button
                   className="homeButton"

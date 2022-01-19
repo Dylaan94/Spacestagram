@@ -31,6 +31,7 @@ class Main extends Component {
     this.callAPI = this.callAPI.bind(this);
     this.handleFormUpdate = this.handleFormUpdate.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleViewSearchForm = this.handleViewSearchForm.bind(this);
   }
 
   callAPI = (e) => {
@@ -162,6 +163,13 @@ class Main extends Component {
     );
   };
 
+  handleViewSearchForm = () => {
+    this.setState({
+      showForm: true
+    })
+
+  }
+
   // saves form inputs into state
   handleFormUpdate = (event) => {
     const name = event.target.name;
@@ -214,6 +222,7 @@ class Main extends Component {
         <Header
           handleViewHome={this.handleViewHome}
           handleViewLikedPhotos={this.handleViewLikedPhotos}
+          handleViewSearchForm={this.handleViewSearchForm}
         ></Header>
 
         {/* renders pic of the day */}

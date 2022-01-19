@@ -13,7 +13,9 @@ class Popup extends Component {
       <Styles.PopupStyles>
         <div className="popup-box">
           <div className="popup">
-            <div className="popup-header"></div>
+            <div className="popup-header">
+              <h1>Spacestagram</h1>
+            </div>
             <div className="popup-container">
               <h1> Welcome to Spacestagram</h1>
               <p>A simple photo viewing webapp powered by NASA's APIs</p>
@@ -25,26 +27,26 @@ class Popup extends Component {
                 <li>View all photos</li>
                 <li>Make your own search!</li>
               </ul>
-            </div>
-            <div className="popup-footer">
-              <div className="popup-footer-left">
-                <button
-                  className="gitHubButton"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open(
-                      "https://github.com/dylaan94/Spacestagram",
-                      "_blank"
-                    );
-                  }}
-                >
-                  View on github
-                </button>
-              </div>
-              <div className="popup-footer-right">
-                <button className="closeButton" onClick={handlePopup}>
-                  Explore
-                </button>
+              <div className="popup-footer">
+                <div className="popup-footer-left">
+                  <button
+                    className="gitHubButton"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.open(
+                        "https://github.com/dylaan94/Spacestagram",
+                        "_blank"
+                      );
+                    }}
+                  >
+                    View on github
+                  </button>
+                </div>
+                <div className="popup-footer-right">
+                  <button className="closeButton" onClick={handlePopup}>
+                    Explore
+                  </button>
+                </div>
               </div>
             </div>
           </div>
