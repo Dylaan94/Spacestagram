@@ -44,6 +44,10 @@ const HeaderStyles = styled.div`
       display: flex;
     }
 
+    button:hover {
+      color: #008060;
+    }
+
     .shopifyLogo {
       display: flex;
       height: 2.5rem;
@@ -136,10 +140,16 @@ const PostStyles = styled.div`
     h3 {
       color: grey;
     }
+    button:hover {
+      color: #008060;
+    }
   }
 
   .heartIcon {
     color: #e63946;
+  }
+  .heartIcon:hover {
+    color: black;
   }
 `;
 
@@ -211,8 +221,8 @@ const PopupStyles = styled.div`
         padding-bottom: 1rem;
         padding-left: 10vw;
       }
-      
-      ul{
+
+      ul {
         padding-bottom: 5vh;
       }
 
@@ -240,6 +250,10 @@ const PopupStyles = styled.div`
         border-top: solid 1px rgb(219, 219, 219);
         font-size: 1.2rem;
         font-weight: 900;
+      }
+
+      button:hover{
+        font-size: 1.3rem;
       }
 
       .popup-footer-left {
@@ -356,6 +370,11 @@ const SearchFormStyles = styled.div`
         border: solid 1px rgb(219, 219, 219);
         border-radius: 5px;
         margin-top: 1vh;
+        background-color: white;
+      }
+
+      select:hover {
+        cursor: pointer;
       }
 
       h2 {
@@ -375,7 +394,7 @@ const SearchFormStyles = styled.div`
 
 const FooterStyles = styled.div`
   height: 5vh;
-  margin-top: 5vh;
+  margin-top: 3vh;
   background: white;
   border-top: solid 1px rgb(219, 219, 219);
 `;

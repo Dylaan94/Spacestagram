@@ -17,7 +17,13 @@ class SearchForm extends Component {
           <div className="searchForm">
             <div className="searchForm-header"></div>
             <div className="searchForm-container">
-              <form onSubmit={handleFormSubmit}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  localStorage.clear();
+                  handleFormSubmit();
+                }}
+              >
                 <label>
                   <h2>Astronomy Photo of the day API:</h2>
 

@@ -105,6 +105,7 @@ class Main extends Component {
               nasaImagesData: nasaImagesData,
               roverData: roverData,
             },
+            formData: {}, // reset form data
           },
           () => {
             console.log(this.state);
@@ -224,18 +225,25 @@ class Main extends Component {
     );
   };
 
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    // close search form
-    this.setState({
-      showForm: false,
-    });
+  handleFormSubmit = () => {
+
 
     const formData = this.state.formData;
-    console.log(formData);
+    let length = Object.keys(formData).length;
 
-    this.callAPI(formData);
+    // check if all data has been input before callig API
+    if (length !== 5) {
+      alert("Please complete the form");
+    } else {
+      this.setState(
+        {
+          showForm: false,
+        },
+        () => {
+          this.callAPI(formData);
+        }
+      );
+    }
   };
 
   handleFormClose = () => {
@@ -253,7 +261,7 @@ class Main extends Component {
     const { isHome, showPopup, showForm } = this.state;
 
     return (
-      <div>
+      <div className = "mainDiv">
         {showForm ? (
           <SearchForm
             handleFormUpdate={this.handleFormUpdate}
@@ -379,7 +387,17 @@ class Main extends Component {
         {/* map over roverData to render components */}
         {isHome
           ? roverData.map(
-              ({ name, date, launchDate, landingDate, cameraFull_Name, sol, id, imageURL, liked }) => (
+              ({
+                name,
+                date,
+                launchDate,
+                landingDate,
+                cameraFull_Name,
+                sol,
+                id,
+                imageURL,
+                liked,
+              }) => (
                 <Post
                   title={name + " - day(Sol): " + sol}
                   date={date}
@@ -395,8 +413,12 @@ class Main extends Component {
                     date +
                     " in Earth years! Sol comes from the latin word for the sun," +
                     " and refers to a solar day on Mars. " +
-                    name + " was launched from Earth on " + launchDate + " and landed on Mars on " + landingDate +
-                    " This photo is from NASA's Mars Rover Photos API which is updated daily." 
+                    name +
+                    " was launched from Earth on " +
+                    launchDate +
+                    " and landed on Mars on " +
+                    landingDate +
+                    " This photo is from NASA's Mars Rover Photos API which is updated daily."
                   }
                   imageURL={imageURL}
                   copyright={"The " + name + " Rover"}
@@ -441,7 +463,6 @@ class Main extends Component {
                   ></Post>
                 )
               )}
-        <Footer></Footer>
       </div>
     );
   }

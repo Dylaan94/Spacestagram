@@ -49,7 +49,7 @@ router.post("/", (req, res, next) => {
         .get("https://images-api.nasa.gov/search?q=earth&media_type=image")
         .then((response) => {
           let dataArray = [];
-          for (let i = 0; i < num; i++) {
+          for (let i = 0; i < 3; i++) {
             let imageObject = {
               name: response.data.collection.items[i].data[0].title,
               date: response.data.collection.items[i].data[0].date_created,
