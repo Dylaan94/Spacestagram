@@ -99,7 +99,10 @@ class SearchForm extends Component {
                   <input className="submitButton" type="submit"></input>
                 </label>
                 <label>
-                  <button className = "closeFormButton" onClick={handleFormClose}> Close </button>
+                  <button className="closeFormButton" onClick={handleFormClose}>
+                    {" "}
+                    Close{" "}
+                  </button>
                 </label>
               </form>
             </div>

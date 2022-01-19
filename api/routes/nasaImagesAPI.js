@@ -62,6 +62,7 @@ router.post("/", (req, res, next) => {
             };
             dataArray.push(imageObject);
           }
+
           return res.send(dataArray);
         });
       

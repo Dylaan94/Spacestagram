@@ -20,7 +20,7 @@ router.post("/", (req, res, next) => {
         process.env.NASA_API_KEY +
         "&count=" +
         num +
-        ""
+        "&thumbs=true"
     )
     .then((response) => {
       let dataArray = [];
@@ -37,6 +37,8 @@ router.post("/", (req, res, next) => {
         };
         dataArray.push(imageObject);
       }
+
+
       res.send(dataArray)
       return dataArray
     }).then((data) => {

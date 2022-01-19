@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
+import DayJS from "react-dayjs";
+import dayjs from "dayjs";
 
 // component imports
 import Header from "./Header";
 import Popup from "./Popup";
 import Post from "./Post";
 import SearchForm from "./SearchForm";
-import Footer from "./Footer"
+import Footer from "./Footer";
 
 class Main extends Component {
   constructor(props) {
@@ -32,7 +34,7 @@ class Main extends Component {
     this.handleFormUpdate = this.handleFormUpdate.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleViewSearchForm = this.handleViewSearchForm.bind(this);
-    this.handleFormClose = this.handleFormClose.bind(this)
+    this.handleFormClose = this.handleFormClose.bind(this);
   }
 
   callAPI = (e) => {
@@ -57,7 +59,43 @@ class Main extends Component {
         let nasaImagesData = res[1].data;
         let roverData = res[2].data;
 
-        // store in localStorage 
+        // update objects if no copyright info
+        for (let i = 0; i < apodData.length; i++) {
+          if (!apodData[i].hasOwnProperty("copyright")) {
+            apodData[i].copyright = "Public Domain Image";
+          }
+        }
+        for (let i = 0; i < nasaImagesData.length; i++) {
+          if (!nasaImagesData[i].hasOwnProperty("copyright")) {
+            nasaImagesData[i].copyright = "Public Domain Image";
+          }
+        }
+
+        // format date, definitely a better way to write this
+        // will update
+
+        for (let i = 0; i < apodData.length; i++) {
+          let date = apodData[i].date;
+          let formattedDate = date.substring(0, 10);
+          let newDate = dayjs(formattedDate).format("DD/MMM/YYYY");
+          apodData[i].date = newDate;
+        }
+
+        for (let i = 0; i < nasaImagesData.length; i++) {
+          let date = nasaImagesData[i].date;
+          let formattedDate = date.substring(0, 10);
+          let newDate = dayjs(formattedDate).format("DD/MMM/YYYY");
+          nasaImagesData[i].date = newDate;
+        }
+
+        for (let i = 0; i < roverData.length; i++) {
+          let date = roverData[i].date;
+          let formattedDate = date.substring(0, 10);
+          let newDate = dayjs(formattedDate).format("DD/MMM/YYYY");
+          roverData[i].date = newDate;
+        }
+
+        // store in localStorage
         localStorage.setItem("apodData", JSON.stringify(apodData));
         localStorage.setItem("nasaImagesData", JSON.stringify(nasaImagesData));
         localStorage.setItem("roverData", JSON.stringify(roverData));
@@ -166,10 +204,9 @@ class Main extends Component {
 
   handleViewSearchForm = () => {
     this.setState({
-      showForm: true
-    })
-
-  }
+      showForm: true,
+    });
+  };
 
   // saves form inputs into state
   handleFormUpdate = (event) => {
@@ -191,6 +228,7 @@ class Main extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
+    localStorage.clear();
     // close search form
     this.setState({
       showForm: false,
@@ -204,9 +242,9 @@ class Main extends Component {
 
   handleFormClose = () => {
     this.setState({
-      showForm: false
-    })
-  }
+      showForm: false,
+    });
+  };
 
   componentDidMount() {
     this.loadFromLocalStorage();
@@ -222,7 +260,7 @@ class Main extends Component {
           <SearchForm
             handleFormUpdate={this.handleFormUpdate}
             handleFormSubmit={this.handleFormSubmit}
-            handleFormClose ={this.handleFormClose}
+            handleFormClose={this.handleFormClose}
           ></SearchForm>
         ) : null}
         {showPopup ? <Popup handlePopup={this.handlePopup}></Popup> : null}
@@ -363,6 +401,7 @@ class Main extends Component {
                     " and can be accessed by clicking here."
                   }
                   imageURL={imageURL}
+                  copyright={"The " + name + " Rover"}
                   key={id}
                   id={id}
                   likedStatus={liked}
@@ -403,7 +442,7 @@ class Main extends Component {
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
                 )
-          )}
+              )}
         <Footer></Footer>
       </div>
     );
