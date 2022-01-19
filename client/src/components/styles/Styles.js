@@ -374,7 +374,7 @@ const SearchFormStyles = styled.div`
 `;
 
 const FooterStyles = styled.div`
-  height: 10vh;
+  height: 5vh;
   margin-top: 5vh;
   background: white;
   border-top: solid 1px rgb(219, 219, 219);

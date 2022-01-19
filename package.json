@@ -1,1 +1,13 @@
-{}
+
+{
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  },
+
+  "scripts": {
+    "server": "cd api && npm start",
+    "client": "cd client && npm start",
+    "start": "concurrently \"npm run server\" \"npm run client \"",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  }
+}
