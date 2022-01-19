@@ -21,7 +21,7 @@ class Main extends Component {
       showPopup: false, // false for dev CHANGE
       showForm: true,
     };
-    this.callNasaAPI = this.callNasaAPI.bind(this);
+
     this.loadFromLocalStorage = this.loadFromLocalStorage.bind(this);
     this.handleLikedPhoto = this.handleLikedPhoto.bind(this);
     this.handleViewHome = this.handleViewHome.bind(this);
@@ -32,53 +32,7 @@ class Main extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  callNasaAPI = () => {
-    if (localStorage.getItem("apodData") !== null) {
-      // check if cached
-      this.loadFromLocalStorage();
-    } else {
-      Promise.all([
-        fetch("http://localhost:9000/nasaAPI"),
-        fetch("http://localhost:9000/nasaRoverAPI"),
-        fetch("http://localhost:9000/nasaImagesAPI"),
-      ])
-        // map through all results and run text();
-        .then((res) => {
-          console.log(res);
-          Promise.all(
-            res.map((res) => {
-              return res.json();
-            })
-          ).then((data) => {
-            let apodData = data[0];
-            let roverData = data[1];
-            let nasaImagesData = data[2];
-            localStorage.setItem("apodData", JSON.stringify(apodData)); // store to cache
-            localStorage.setItem("roverData", JSON.stringify(roverData));
-            localStorage.setItem(
-              "nasaImagesData",
-              JSON.stringify(nasaImagesData)
-            );
-            this.setState(
-              {
-                nasaAPIData: {
-                  apodData: apodData,
-                  roverData: roverData,
-                  nasaImagesData: nasaImagesData,
-                },
-              },
-              () => {
-                console.log(this.state);
-                console.log(localStorage);
-              }
-            );
-          });
-        });
-    }
-  };
-
   callAPI = (e) => {
-    console.log("hi");
     const headers = {
       "Content-Type": "application/json;charset=UTF-8",
     };
@@ -90,22 +44,27 @@ class Main extends Component {
       axios.post("http://localhost:9000/nasaImagesAPI", formData, {
         headers: headers,
       }),
+      axios.post("http://localhost:9000/nasaRoverAPI", formData, {
+        headers: headers,
+      }),
     ])
-
       .then((res) => {
-        console.log(res)
+        console.log(res);
         let apodData = res[0].data;
-        let nasaImagesData = res[1].data
-        console.log(apodData);
-        console.log(nasaImagesData)
+        let nasaImagesData = res[1].data;
+        let roverData = res[2].data;
+
+        // store in localStorage 
         localStorage.setItem("apodData", JSON.stringify(apodData));
-        localStorage.setItem("nasaImagesData", JSON.stringify(nasaImagesData))
+        localStorage.setItem("nasaImagesData", JSON.stringify(nasaImagesData));
+        localStorage.setItem("roverData", JSON.stringify(roverData));
 
         this.setState(
           {
             nasaAPIData: {
               apodData: apodData,
               nasaImagesData: nasaImagesData,
+              roverData: roverData,
             },
           },
           () => {
@@ -120,22 +79,28 @@ class Main extends Component {
   };
 
   loadFromLocalStorage = () => {
-    console.log("loading from local storage");
-    let apodData = JSON.parse(localStorage.getItem("apodData"));
-    let roverData = JSON.parse(localStorage.getItem("roverData"));
-    let nasaImagesData = JSON.parse(localStorage.getItem("nasaImagesData"));
-    this.setState(
-      {
-        nasaAPIData: {
-          apodData: apodData,
-          roverData: roverData,
-          nasaImagesData: nasaImagesData,
+    if (localStorage.getItem("apodData") !== null) {
+      // check if cached
+      console.log("loading from local storage");
+      let apodData = JSON.parse(localStorage.getItem("apodData"));
+      let roverData = JSON.parse(localStorage.getItem("roverData"));
+      let nasaImagesData = JSON.parse(localStorage.getItem("nasaImagesData"));
+
+      this.setState(
+        {
+          nasaAPIData: {
+            apodData: apodData,
+            roverData: roverData,
+            nasaImagesData: nasaImagesData,
+          },
         },
-      },
-      () => {
-        console.log(this.state); // callback to check state
-      }
-    );
+        () => {
+          console.log(this.state); // callback to check state
+        }
+      );
+    } else {
+      console.log("nothing in storage");
+    }
   };
 
   handlePopup = () => {
@@ -228,8 +193,7 @@ class Main extends Component {
   };
 
   componentDidMount() {
-    //   this.callNasaAPI();
-    //this.callAPI();
+    this.loadFromLocalStorage();
   }
 
   render() {
@@ -359,7 +323,7 @@ class Main extends Component {
               )}
 
         {/* map over roverData to render components */}
-        {/* {isHome
+        {isHome
           ? roverData.map(
               ({ name, date, cameraFull_Name, sol, id, imageURL, liked }) => (
                 <Post
@@ -421,7 +385,7 @@ class Main extends Component {
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
                 )
-              )} */}
+              )}
       </div>
     );
   }

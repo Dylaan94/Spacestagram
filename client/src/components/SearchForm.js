@@ -20,7 +20,14 @@ class SearchForm extends Component {
                 <label>
                   <h2>Astronomy Photo of the day API:</h2>
                   <h3>How many of the latest photos would you like to see?</h3>
-                  <select name="APODNum" onChange={handleFormUpdate}>
+                  <select
+                    name="APODNum"
+                    defaultValue="default"
+                    onChange={handleFormUpdate}
+                  >
+                    <option value="default" disabled>
+                      please select number
+                    </option>
                     <option value="1"> 1 </option>
                     <option value="2"> 2 </option>
                     <option value="3"> 3 </option>
@@ -34,7 +41,14 @@ class SearchForm extends Component {
                     name="keywordSearch"
                     onChange={handleFormUpdate}
                   ></input>
-                  <select name="nasaImagesNum" onChange={handleFormUpdate}>
+                  <select
+                    name="nasaImagesNum"
+                    defaultValue="default"
+                    onChange={handleFormUpdate}
+                  >
+                    <option value="default" disabled>
+                      please select number
+                    </option>
                     <option value="1"> 1 </option>
                     <option value="2"> 2 </option>
                     <option value="3"> 3 </option>
@@ -42,11 +56,30 @@ class SearchForm extends Component {
                 </label>
                 <label>
                   <h2>NasaRover API:</h2>
-                  <h3>Please select Rover name and Date</h3>
-                  <select name="nasaRoverName" onChange={handleFormUpdate}>
+                  <h3>Please select Rover Name and number</h3>
+                  <select
+                    name="nasaRoverName"
+                    defaultValue="default"
+                    onChange={handleFormUpdate}
+                  >
+                    <option value="default" disabled>
+                      please select Rover
+                    </option>
                     <option value="Curisoity"> Curiosity </option>
                     <option value="Opportunity"> Opportunity </option>
                     <option value="Spirit"> Spirit </option>
+                  </select>
+                  <select
+                    name="nasaRoverNum"
+                    defaultValue="default"
+                    onChange={handleFormUpdate}
+                  >
+                    <option value="default" disabled>
+                      please select number
+                    </option>
+                    <option value="1"> 1 </option>
+                    <option value="2"> 2 </option>
+                    <option value="3"> 3 </option>
                   </select>
                 </label>
                 <input type="submit"></input>

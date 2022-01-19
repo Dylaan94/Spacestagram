@@ -18,7 +18,7 @@ router.post("/", (req, res, next) => {
       "https://images-api.nasa.gov/search?q=" + searchReq + "&media_type=image"
     )
     .then((response) => {
-      console.log(response.data.collection.items[0])
+      console.log(response.data.collection.items[0]);
       let dataArray = [];
       for (let i = 0; i < num; i++) {
         let imageObject = {
@@ -32,14 +32,39 @@ router.post("/", (req, res, next) => {
         };
         dataArray.push(imageObject);
       }
-      console.log(dataArray)
+      console.log(dataArray);
 
       res.send(dataArray);
-      return dataArray
-    }).then((data) => {
+      return dataArray;
+    })
+    .then((data) => {
       router.get("/", (req, res, next) => {
-        res.send(data)
-      })
+        return res.send(data);
+      });
+    })
+    // if images dont return, return pictures of earth
+    .catch((e) => {
+      console.log(e);
+      axios
+        .get("https://images-api.nasa.gov/search?q=earth&media_type=image")
+        .then((response) => {
+          let dataArray = [];
+          for (let i = 0; i < num; i++) {
+            let imageObject = {
+              name: response.data.collection.items[i].data[0].title,
+              date: response.data.collection.items[i].data[0].date_created,
+              explanation:
+                response.data.collection.items[i].data[0].description,
+              copyright: response.data.collection.items[i].data[0].photographer,
+              imageURL: response.data.collection.items[i].links[0].href,
+              id: uuidv4(), // create unique id
+              liked: false, // initialised to false
+            };
+            dataArray.push(imageObject);
+          }
+          return res.send(dataArray);
+        });
+      
     });
 });
 
