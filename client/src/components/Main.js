@@ -19,7 +19,7 @@ class Main extends Component {
       },
       formData: {},
       isHome: true, // page status - home or liked
-      showPopup: false, // false for dev CHANGE
+      showPopup: true, // false for dev CHANGE
       showForm: false,
     };
 

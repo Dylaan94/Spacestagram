@@ -16,27 +16,36 @@ class Popup extends Component {
             <div className="popup-header"></div>
             <div className="popup-container">
               <h1> Welcome to Spacestagram</h1>
-              <p>A simple ... powered by NASA APIs</p>
+              <p>A simple photo viewing webapp powered by NASA's APIs</p>
               <h2>Features</h2>
               <ul>
-                <li> Like photos by clicking the thumb</li>
-                <li> Unlike by clicking the red heart</li>
-                <li>
-                  View all liked photos by clicking the black heart in the
-                  header
-                </li>
-                <li>
-                  View all photos by clicking the home button in the header
-                </li>
+                <li> Like photos</li>
+                <li> Unlike photos</li>
+                <li>View liked photos</li>
+                <li>View all photos</li>
+                <li>Make your own search!</li>
               </ul>
             </div>
             <div className="popup-footer">
-              <button className="gitHubButton">
-                Click here to visit my github
-              </button>
-              <button className="closeButton" onClick={handlePopup}>
-                Click to close
-              </button>
+              <div className="popup-footer-left">
+                <button
+                  className="gitHubButton"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.open(
+                      "https://github.com/dylaan94/Spacestagram",
+                      "_blank"
+                    );
+                  }}
+                >
+                  View on github
+                </button>
+              </div>
+              <div className="popup-footer-right">
+                <button className="closeButton" onClick={handlePopup}>
+                  Explore
+                </button>
+              </div>
             </div>
           </div>
         </div>

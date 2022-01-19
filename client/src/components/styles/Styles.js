@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Footer from "../Footer";
 
 const HeaderStyles = styled.div`
   background: white;
@@ -147,6 +146,7 @@ const PostStyles = styled.div`
 const PopupStyles = styled.div`
   display: flex;
   flex-direction: column;
+  font-family: "Roboto", sans-serif;
 
   .popup-box {
     display: flex;
@@ -178,13 +178,58 @@ const PopupStyles = styled.div`
     }
 
     .popup-container {
-      height: 70%;
+      display: flex;
+      flex-direction: column;
+      height: 65%;
+      h1 {
+        font-size: 2em;
+        font-weight: 600;
+        text-align: center;
+        padding: 1rem;
+      }
+
+      p {
+        color: #6b7177;
+      }
+
+      h2 {
+        font-size: 1.5em;
+        font-weight: 600;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+
+      li {
+        color: #6b7177;
+      }
     }
 
     .popup-footer {
-      height: 10%;
+      display: flex;
+      flex-direction: row;
+      height: 15%;
       width: 100%;
-      background: rgb(219, 219, 219);
+
+      .popup-footer-left,
+      .popup-footer-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        border-top: solid 1px rgb(219, 219, 219);
+        font-size: 1.5rem;
+        font-weight: 900;
+      }
+
+      .popup-footer-left {
+        border-right: solid 0.5px rgb(219, 219, 219);
+        color: grey;
+      }
+
+      .popup-footer-right {
+        border-right: solid 0.5px rgb(219, 219, 219);
+        color: #008060;
+      }
     }
   }
 `;
@@ -238,7 +283,7 @@ const FooterStyles = styled.div`
   height: 10vh;
   margin-top: 5vh;
   background: white;
-  border-top: solid 1px rgb(219,219,219);
+  border-top: solid 1px rgb(219, 219, 219);
 `;
 
 const Styles = {
