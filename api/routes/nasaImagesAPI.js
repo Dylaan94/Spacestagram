@@ -70,4 +70,3 @@ router.post("/", (req, res, next) => {
 
 module.exports = router;
 
-//https://images.nasa.gov/search-results?q=apollo%20x&page=1&media=image&yearStart=1920&yearEnd=2022

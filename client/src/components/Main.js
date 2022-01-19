@@ -6,6 +6,7 @@ import Header from "./Header";
 import Popup from "./Popup";
 import Post from "./Post";
 import SearchForm from "./SearchForm";
+import Footer from "./Footer"
 
 class Main extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Main extends Component {
       formData: {},
       isHome: true, // page status - home or liked
       showPopup: false, // false for dev CHANGE
-      showForm: true,
+      showForm: false,
     };
 
     this.loadFromLocalStorage = this.loadFromLocalStorage.bind(this);
@@ -385,7 +386,8 @@ class Main extends Component {
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
                 )
-              )}
+          )}
+        <Footer></Footer>
       </div>
     );
   }

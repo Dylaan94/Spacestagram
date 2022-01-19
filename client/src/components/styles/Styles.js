@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Footer from "../Footer";
 
 const HeaderStyles = styled.div`
   background: white;
@@ -230,8 +231,14 @@ const SearchFormStyles = styled.div`
       width: 100%;
       background: rgb(219, 219, 219);
     }
-
   }
+`;
+
+const FooterStyles = styled.div`
+  height: 10vh;
+  margin-top: 5vh;
+  background: white;
+  border-top: solid 1px rgb(219,219,219);
 `;
 
 const Styles = {
@@ -239,6 +246,7 @@ const Styles = {
   PostStyles: PostStyles,
   PopupStyles: PopupStyles,
   SearchFormStyles: SearchFormStyles,
+  FooterStyles: FooterStyles,
 };
 
 export default Styles;
