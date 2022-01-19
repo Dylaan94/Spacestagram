@@ -324,7 +324,7 @@ const SearchFormStyles = styled.div`
         border-radius: 5px;
         background-color: #f5f5f5;
         margin-top: 2vh;
-        padding-left: 4vw;
+        padding-left: 20px;
         font-size: 1rem;
       }
 
