@@ -1,11 +1,23 @@
 import React, { Component } from "react";
 import Styles from "./styles/Styles";
 
+//fontawesome imports
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faHome, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
+
+const homeIcon = <FontAwesomeIcon icon={faHome} />;
+const heartIcon = <FontAwesomeIcon icon={faHeart} />;
+const searchIcon = <FontAwesomeIcon icon={faSearch} />;
+const thumbsUp = <FontAwesomeIcon icon={faThumbsUp} />;
+
+
 class Popup extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+  
 
   render() {
     const { handlePopup } = this.props;
@@ -21,11 +33,11 @@ class Popup extends Component {
               <p>A simple photo viewing webapp powered by NASA's APIs</p>
               <h2>Features</h2>
               <ul>
-                <li> Like photos</li>
-                <li> Unlike photos</li>
-                <li>View liked photos</li>
-                <li>View all photos</li>
-                <li>Make your own search!</li>
+                            <li> {thumbsUp} Click the thumbs up to like, red heart to dislike</li>
+                
+                            <li> {heartIcon} View liked photos by clicking the heart icon in the header</li>
+                            <li> {homeIcon} View all photos by clicking home icon in the header</li>
+                            <li> {searchIcon} Create your own search by clicking the search icon</li>
               </ul>
               <div className="popup-footer">
                 <div className="popup-footer-left">

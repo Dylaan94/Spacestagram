@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import DayJS from "react-dayjs";
 import dayjs from "dayjs";
 
 // component imports
@@ -73,7 +72,6 @@ class Main extends Component {
 
         // format date, definitely a better way to write this
         // will update
-
         for (let i = 0; i < apodData.length; i++) {
           let date = apodData[i].date;
           let formattedDate = date.substring(0, 10);
@@ -381,7 +379,7 @@ class Main extends Component {
         {/* map over roverData to render components */}
         {isHome
           ? roverData.map(
-              ({ name, date, cameraFull_Name, sol, id, imageURL, liked }) => (
+              ({ name, date, launchDate, landingDate, cameraFull_Name, sol, id, imageURL, liked }) => (
                 <Post
                   title={name + " - day(Sol): " + sol}
                   date={date}
@@ -396,9 +394,9 @@ class Main extends Component {
                     " or " +
                     date +
                     " in Earth years! Sol comes from the latin word for the sun," +
-                    " and refers to a solar day on Mars." +
-                    " This photo is from NASA's Mars Rover Photos API which is updated daily" +
-                    " and can be accessed by clicking here."
+                    " and refers to a solar day on Mars. " +
+                    name + " was launched from Earth on " + launchDate + " and landed on Mars on " + landingDate +
+                    " This photo is from NASA's Mars Rover Photos API which is updated daily." 
                   }
                   imageURL={imageURL}
                   copyright={"The " + name + " Rover"}

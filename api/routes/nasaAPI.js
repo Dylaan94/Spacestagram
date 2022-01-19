@@ -38,13 +38,14 @@ router.post("/", (req, res, next) => {
         dataArray.push(imageObject);
       }
 
-
       res.send(dataArray)
       return dataArray
     }).then((data) => {
       router.get("/", (req, res, next) => {
         res.send(data)
       })
+    }).catch((e) => {
+      console.log(e);
     });
 });
 

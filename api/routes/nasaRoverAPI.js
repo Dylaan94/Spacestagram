@@ -26,7 +26,6 @@ router
           ""
       )
       .then((response) => {
-        //res.send(response.data);
         let dataArray = [];
         // num sets number of images to send
         for (let i = 0; i < num; i++) {
@@ -60,4 +59,3 @@ router
 
 module.exports = router;
 
-// https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=200&camera=fhaz&api_key=

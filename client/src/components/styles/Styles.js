@@ -211,10 +211,15 @@ const PopupStyles = styled.div`
         padding-bottom: 1rem;
         padding-left: 10vw;
       }
+      
+      ul{
+        padding-bottom: 5vh;
+      }
 
       li {
         color: #6b7177;
         padding-left: 10vw;
+        padding-top: 2vh;
       }
     }
 
