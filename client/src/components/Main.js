@@ -32,6 +32,7 @@ class Main extends Component {
     this.handleFormUpdate = this.handleFormUpdate.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleViewSearchForm = this.handleViewSearchForm.bind(this);
+    this.handleFormClose = this.handleFormClose.bind(this)
   }
 
   callAPI = (e) => {
@@ -201,6 +202,12 @@ class Main extends Component {
     this.callAPI(formData);
   };
 
+  handleFormClose = () => {
+    this.setState({
+      showForm: false
+    })
+  }
+
   componentDidMount() {
     this.loadFromLocalStorage();
   }
@@ -215,6 +222,7 @@ class Main extends Component {
           <SearchForm
             handleFormUpdate={this.handleFormUpdate}
             handleFormSubmit={this.handleFormSubmit}
+            handleFormClose ={this.handleFormClose}
           ></SearchForm>
         ) : null}
         {showPopup ? <Popup handlePopup={this.handlePopup}></Popup> : null}

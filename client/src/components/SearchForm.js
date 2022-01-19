@@ -1,3 +1,4 @@
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import React, { Component } from "react";
 
 import Styles from "./styles/Styles";
@@ -9,7 +10,7 @@ class SearchForm extends Component {
   }
 
   render() {
-    const { handleFormUpdate, handleFormSubmit } = this.props;
+    const { handleFormUpdate, handleFormSubmit, handleFormClose } = this.props;
     return (
       <Styles.SearchFormStyles>
         <div className="searchForm-box">
@@ -66,8 +67,8 @@ class SearchForm extends Component {
                 <label>
                   <h2>NasaRover API:</h2>
                   <p>
-                    Will return 3 pictures from your selected rover's first day
-                    on Mars - Sol 1!
+                    Returns 3 pictures from your selected rover's first day on
+                    Mars - Sol 1!
                   </p>
                   <select
                     name="nasaRoverName"
@@ -97,8 +98,10 @@ class SearchForm extends Component {
                 <label>
                   <input className="submitButton" type="submit"></input>
                 </label>
+                <label>
+                  <button className = "closeFormButton" onClick={handleFormClose}> Close </button>
+                </label>
               </form>
-
             </div>
           </div>
         </div>

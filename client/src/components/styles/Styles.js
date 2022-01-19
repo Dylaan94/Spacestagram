@@ -322,6 +322,18 @@ const SearchFormStyles = styled.div`
         padding: 0.1em 0.4em 0.1em 0.4em;
         border-radius: 5px;
         margin-top: 3vh;
+        margin-bottom: 1.5vh;
+      }
+
+      .closeFormButton {
+        height: auto;
+        width: auto;
+        font-size: 1.5em;
+        font-weight: 600;
+        color: white;
+        background-color: #e63946;
+        padding: 0.1em 0.4em 0.1em 0.4em;
+        border-radius: 5px;
         margin-bottom: 3vh;
       }
 
@@ -352,13 +364,6 @@ const SearchFormStyles = styled.div`
         text-align: center;
         color: #6b7177;
       }
-    }
-
-    .searchForm-footer {
-      height: 5%;
-      width: 100%;
-      background: rgb(219, 219, 219);
-      margin-top: auto;
     }
   }
 `;
