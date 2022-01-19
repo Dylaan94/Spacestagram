@@ -19,14 +19,16 @@ class SearchForm extends Component {
               <form onSubmit={handleFormSubmit}>
                 <label>
                   <h2>Astronomy Photo of the day API:</h2>
-                  <h3>How many of the latest photos would you like to see?</h3>
+
+                  <p>Returns selected number of photos from</p>
+                  <p> the Astronomy Photo of the Day API</p>
                   <select
                     name="APODNum"
                     defaultValue="default"
                     onChange={handleFormUpdate}
                   >
                     <option value="default" disabled>
-                      please select number
+                      select number
                     </option>
                     <option value="1"> 1 </option>
                     <option value="2"> 2 </option>
@@ -34,11 +36,18 @@ class SearchForm extends Component {
                   </select>
                 </label>
                 <label>
-                  <h2>NASA Images API</h2>
-                  <h3>Please search a keyword and select number of photos</h3>
+                  <h2>NASA Images API search:</h2>
+                  <p>How about you try something space related?</p>
+                  <p>For example: Moon, Earth, Shuttle etc.</p>
+                  <p>
+                    Invalid searches will return 3 beautiful photos of the
+                    Earth!
+                  </p>
                   <input
                     type="text"
                     name="keywordSearch"
+                    className="searchBar"
+                    placeholder="To infinity and beyond!"
                     onChange={handleFormUpdate}
                   ></input>
                   <select
@@ -47,7 +56,7 @@ class SearchForm extends Component {
                     onChange={handleFormUpdate}
                   >
                     <option value="default" disabled>
-                      please select number
+                      select number
                     </option>
                     <option value="1"> 1 </option>
                     <option value="2"> 2 </option>
@@ -56,14 +65,17 @@ class SearchForm extends Component {
                 </label>
                 <label>
                   <h2>NasaRover API:</h2>
-                  <h3>Please select Rover Name and number</h3>
+                  <p>
+                    Will return 3 pictures from your selected rover's first day
+                    on Mars - Sol 1!
+                  </p>
                   <select
                     name="nasaRoverName"
                     defaultValue="default"
                     onChange={handleFormUpdate}
                   >
                     <option value="default" disabled>
-                      please select Rover
+                      select Rover
                     </option>
                     <option value="Curisoity"> Curiosity </option>
                     <option value="Opportunity"> Opportunity </option>
@@ -75,17 +87,19 @@ class SearchForm extends Component {
                     onChange={handleFormUpdate}
                   >
                     <option value="default" disabled>
-                      please select number
+                      select number
                     </option>
                     <option value="1"> 1 </option>
                     <option value="2"> 2 </option>
                     <option value="3"> 3 </option>
                   </select>
                 </label>
-                <input type="submit"></input>
+                <label>
+                  <input className="submitButton" type="submit"></input>
+                </label>
               </form>
+
             </div>
-            <div className="searchForm-footer"></div>
           </div>
         </div>
       </Styles.SearchFormStyles>

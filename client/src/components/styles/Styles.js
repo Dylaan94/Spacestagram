@@ -253,6 +253,7 @@ const PopupStyles = styled.div`
 const SearchFormStyles = styled.div`
   display: flex;
   flex-direction: column;
+  font-family: "Roboto", sans-serif;
 
   .searchForm-box {
     display: flex;
@@ -270,8 +271,10 @@ const SearchFormStyles = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: clamp(60vw, 600px, 95vw);
-    height: clamp(80vh, 1000px, 90vh);
+    min-width: 50vw;
+    max-width: 90vw;
+    width: clamp(30vw, 600px, 95vw);
+    height: clamp(60vh, 800px, 80vh);
     background: white;
     border: 1px solid rgb(219, 219, 219);
     border-radius: 5px;
@@ -284,13 +287,78 @@ const SearchFormStyles = styled.div`
     }
 
     .searchForm-container {
-      height: 90%;
+      height: auto;
+      max-height: 50vh;
+      margin-top: 2vh;
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+      }
+
+      .searchBar {
+        width: 80%;
+        height: 5vh;
+        min-height: 2em;
+        border: solid 1px gray;
+        border-radius: 5px;
+        background-color: #f5f5f5;
+        margin-top: 2vh;
+      }
+
+      .searchBar:hover {
+        border: solid 1px #008060;
+        background-color: white;
+      }
+
+      .submitButton {
+        height: auto;
+        width: auto;
+        font-size: 2em;
+        font-weight: 600;
+        color: white;
+        background-color: #008060;
+        padding: 0.1em 0.4em 0.1em 0.4em;
+        border-radius: 5px;
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      select {
+        font-family: "Roboto", sans-serif;
+        width: 25%;
+        height: 4vh;
+        min-height: 2em;
+        border: solid 1px rgb(219, 219, 219);
+        border-radius: 5px;
+        margin-top: 1vh;
+      }
+
+      h2 {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 600;
+        padding-bottom: 1vh;
+        padding-top: 1vh;
+      }
+      p {
+        text-align: center;
+        color: #6b7177;
+      }
     }
 
     .searchForm-footer {
       height: 5%;
       width: 100%;
       background: rgb(219, 219, 219);
+      margin-top: auto;
     }
   }
 `;
