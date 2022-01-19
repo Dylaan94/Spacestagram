@@ -71,26 +71,30 @@ class Main extends Component {
         }
 
         // format date, definitely a better way to write this
+        // cuts unneccessary ends off string and formats with dayjs
         // will update
         for (let i = 0; i < apodData.length; i++) {
-          let date = apodData[i].date;
-          let formattedDate = date.substring(0, 10);
-          let newDate = dayjs(formattedDate).format("DD/MMM/YYYY");
-          apodData[i].date = newDate;
+          apodData[i].date = dayjs(apodData[i].date.substring(0, 10)).format(
+            "MMM-DD-YYYY"
+          );
         }
 
         for (let i = 0; i < nasaImagesData.length; i++) {
-          let date = nasaImagesData[i].date;
-          let formattedDate = date.substring(0, 10);
-          let newDate = dayjs(formattedDate).format("DD/MMM/YYYY");
-          nasaImagesData[i].date = newDate;
+          nasaImagesData[i].date = dayjs(
+            nasaImagesData[i].date.substring(0, 10)
+          ).format("MMM-DD-YYYY");
         }
 
         for (let i = 0; i < roverData.length; i++) {
-          let date = roverData[i].date;
-          let formattedDate = date.substring(0, 10);
-          let newDate = dayjs(formattedDate).format("DD/MMM/YYYY");
-          roverData[i].date = newDate;
+          roverData[i].date = dayjs(roverData[i].date.substring(0, 10)).format(
+            "MMM-DD-YYYY"
+          );
+          roverData[i].landingDate = dayjs(
+            roverData[i].landingDate.substring(0, 10)
+          ).format("MMM-DD-YYYY");
+          roverData[i].launchDate = dayjs(
+            roverData[i].launchDate.substring(0, 10)
+          ).format("MMM-DD-YYYY");
         }
 
         // store in localStorage
@@ -226,8 +230,6 @@ class Main extends Component {
   };
 
   handleFormSubmit = () => {
-
-
     const formData = this.state.formData;
     let length = Object.keys(formData).length;
 
@@ -261,7 +263,7 @@ class Main extends Component {
     const { isHome, showPopup, showForm } = this.state;
 
     return (
-      <div className = "mainDiv">
+      <div className="mainDiv">
         {showForm ? (
           <SearchForm
             handleFormUpdate={this.handleFormUpdate}
@@ -399,7 +401,7 @@ class Main extends Component {
                 liked,
               }) => (
                 <Post
-                  title={name + " - day(Sol): " + sol}
+                  title={name + " - Sol: " + sol}
                   date={date}
                   explanation={
                     "This is a photo taken by the " +
@@ -407,18 +409,18 @@ class Main extends Component {
                     " from The " +
                     name +
                     " Rover " +
-                    "on Sol:" +
+                    "on Sol " +
                     sol +
                     " or " +
                     date +
-                    " in Earth years! Sol comes from the latin word for the sun," +
+                    " in Earth years! Sol comes from the Latin word for the sun," +
                     " and refers to a solar day on Mars. " +
                     name +
                     " was launched from Earth on " +
                     launchDate +
                     " and landed on Mars on " +
                     landingDate +
-                    " This photo is from NASA's Mars Rover Photos API which is updated daily."
+                    ". This photo is from NASA's Mars Rover Photos API which is updated daily."
                   }
                   imageURL={imageURL}
                   copyright={"The " + name + " Rover"}
@@ -434,7 +436,17 @@ class Main extends Component {
           : roverData
               .filter((item) => item.liked)
               .map(
-                ({ name, date, cameraFull_Name, sol, id, imageURL, liked }) => (
+                ({
+                  name,
+                  date,
+                  launchDate,
+                  landingDate,
+                  cameraFull_Name,
+                  sol,
+                  id,
+                  imageURL,
+                  liked,
+                }) => (
                   <Post
                     title={name + " - day(Sol): " + sol}
                     date={date}
@@ -444,14 +456,18 @@ class Main extends Component {
                       " from The " +
                       name +
                       " Rover " +
-                      "on Sol:" +
+                      "on Sol " +
                       sol +
                       " or " +
                       date +
-                      " in Earth years! Sol comes from the latin word for the sun," +
-                      " and refers to a solar day on Mars." +
-                      " This photo is from NASA's Mars Rover Photos API which is updated daily" +
-                      " and can be accessed by clicking here."
+                      " in Earth years! Sol comes from the Latin word for the sun," +
+                      " and refers to a solar day on Mars. " +
+                      name +
+                      " was launched from Earth on " +
+                      launchDate +
+                      " and landed on Mars on " +
+                      landingDate +
+                      ". This photo is from NASA's Mars Rover Photos API which is updated daily."
                     }
                     imageURL={imageURL}
                     key={id}

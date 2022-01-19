@@ -47,7 +47,7 @@ class SearchForm extends Component {
                   <p>How about you try something space related?</p>
                   <p>For example: Moon, Earth, Shuttle etc.</p>
                   <p>
-                    Invalid searches will return 3 beautiful photos of the
+                    Invalid searches will return 3 beautiful images of the
                     Earth!
                   </p>
                   <input
@@ -73,7 +73,7 @@ class SearchForm extends Component {
                 <label>
                   <h2>NasaRover API:</h2>
                   <p>
-                    Returns 3 pictures from your selected rover's first day on
+                    Returns 3 images from your selected rover's first day on
                     Mars - Sol 1!
                   </p>
                   <select

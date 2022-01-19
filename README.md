@@ -12,7 +12,7 @@
 
 ### NASA Images API Search: 
 - Manual search which will return the first 3 images from the API
-- If search is invalid, returns 3 beautiful images of the earth
+- If search is invalid, returns 3 beautiful images of the Earth
 
 ### Nasa Rover API
 - Returns 3 images of your favourite Rover on their first day on Mars - Sol 1!

@@ -103,7 +103,6 @@ const PostStyles = styled.div`
   }
 
   .imageContainer {
-    // min-height: 600px;
     border-bottom: 1px solid rgb(219, 219, 219);
     img {
       width: 100%;
