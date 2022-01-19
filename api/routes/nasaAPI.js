@@ -11,30 +11,39 @@ const { v1: uuidv1, v4: uuidv4 } = require("uuid");
 router.post("/", (req, res, next) => {
   // call from NASA api and create an object based off data
   // API key hidden for security purposes
+  let num = req.body.APODNum; // number of photos requested
 
-  console.log(req.body)
-
-  //res.send(req)
+  console.log(num);
   axios
     .get(
       "https://api.nasa.gov/planetary/apod?api_key=" +
         process.env.NASA_API_KEY +
+        "&count=" +
+        num +
         ""
     )
     .then((response) => {
-      let dataArray = [{
-        title: response.data.title,
-        date: response.data.date,
-        explanation: response.data.explanation,
-        copyright: response.data.copyright,
-        imageURL: response.data.url,
-        dataAccessed: "",
-        id: uuidv4(), // create unique id
-        liked: false // initialised to false
-      }];
-      //res.send(dataArray);
+      let dataArray = [];
+      for (let i = 0; i < num; i++) {
+        let imageObject = {
+          title: response.data[i].title,
+          date: response.data[i].date,
+          explanation: response.data[i].explanation,
+          copyright: response.data[i].copyright,
+          imageURL: response.data[i].url,
+          dataAccessed: "",
+          id: uuidv4(), // create unique id
+          liked: false, // initialised to false
+        };
+        dataArray.push(imageObject);
+      }
+      res.send(dataArray)
+      return dataArray
+    }).then((data) => {
+      router.get("/", (req, res, next) => {
+        res.send(data)
+      })
     });
 });
-
 
 module.exports = router;

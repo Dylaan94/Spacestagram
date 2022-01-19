@@ -16,7 +16,7 @@ class SearchForm extends Component {
           <div className="searchForm">
             <div className="searchForm-header"></div>
             <div className="searchForm-container">
-              <form>
+              <form onSubmit={handleFormSubmit}>
                 <label>
                   <h2>Astronomy Photo of the day API:</h2>
                   <h3>How many of the latest photos would you like to see?</h3>
@@ -49,9 +49,7 @@ class SearchForm extends Component {
                     <option value="Spirit"> Spirit </option>
                   </select>
                 </label>
-                <label>
-                  <input type="submit" onClick={handleFormSubmit}></input>
-                </label>
+                <input type="submit"></input>
               </form>
             </div>
             <div className="searchForm-footer"></div>

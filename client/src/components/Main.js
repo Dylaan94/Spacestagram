@@ -27,7 +27,7 @@ class Main extends Component {
     this.handleViewHome = this.handleViewHome.bind(this);
     this.handleViewLikedPhotos = this.handleViewLikedPhotos.bind(this);
     this.handlePopup = this.handlePopup.bind(this);
-    this.apiTest = this.apiTest.bind(this);
+    this.callAPI = this.callAPI.bind(this);
     this.handleFormUpdate = this.handleFormUpdate.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
@@ -77,12 +77,30 @@ class Main extends Component {
     }
   };
 
-  apiTest = () => {
-    let object = { name: "dylan" };
-    console.log("hi");
-    axios.post("http://localhost:9000/nasaAPI", object).then(() => {
-      console.log("sent");
-    });
+  callAPI = (e) => {
+    console.log("hi")
+    const headers = {
+      "Content-Type": "application/json;charset=UTF-8",
+    };
+    let formData = e;
+    axios.post("http://localhost:9000/nasaAPI", formData, { headers: headers })
+      .then((res) => {
+        let apodData = res.data;
+        console.log(apodData)
+        localStorage.setItem("apodData", JSON.stringify(apodData))
+
+        this.setState({
+          nasaAPIData: {
+            apodData:apodData
+          }
+        }, () => {
+            console.log(this.state)
+            console.log(localStorage)
+        })
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
 
   loadFromLocalStorage = () => {
@@ -162,6 +180,7 @@ class Main extends Component {
     );
   };
 
+  // saves form inputs into state
   handleFormUpdate = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -179,13 +198,22 @@ class Main extends Component {
     );
   };
 
-  handleFormSubmit = () => {
-    console.log("form submitted roadman")
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    // close search form
+    this.setState({
+      showForm: false,
+    });
+
+    const formData = this.state.formData;
+    console.log(formData);
+
+    this.callAPI(formData);
   };
 
   componentDidMount() {
-    this.callNasaAPI();
-    //this.apiTest();
+    //   this.callNasaAPI();
+    //this.callAPI();
   }
 
   render() {
@@ -207,9 +235,7 @@ class Main extends Component {
           handleViewLikedPhotos={this.handleViewLikedPhotos}
         ></Header>
 
-        {/* renders pic of the day,
-        currently array only has 1 item, but written with map for
-        maintainability and upgrade purposes */}
+        {/* renders pic of the day */}
 
         {/* if isHome returns true, all posts are rendered. 
         if false returns all liked photos */}
@@ -268,7 +294,7 @@ class Main extends Component {
               )}
 
         {/* map over nasaImagesData to render components */}
-        {isHome
+        {/* {isHome
           ? nasaImagesData.map(
               ({ name, date, explanation, copyright, imageURL, id, liked }) => (
                 <Post
@@ -314,10 +340,10 @@ class Main extends Component {
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
                 )
-              )}
+              )} */}
 
         {/* map over roverData to render components */}
-        {isHome
+        {/* {isHome
           ? roverData.map(
               ({ name, date, cameraFull_Name, sol, id, imageURL, liked }) => (
                 <Post
@@ -379,7 +405,7 @@ class Main extends Component {
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
                 )
-              )}
+              )} */}
       </div>
     );
   }
