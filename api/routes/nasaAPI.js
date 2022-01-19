@@ -11,7 +11,7 @@ const { v1: uuidv1, v4: uuidv4 } = require("uuid");
 router.post("/", (req, res, next) => {
   // call from NASA api and create an object based off data
   // API key hidden for security purposes
-  let num = req.body.APODNum; // number of photos requested
+  const num = req.body.APODNum; // number of photos requested
 
   console.log(num);
   axios

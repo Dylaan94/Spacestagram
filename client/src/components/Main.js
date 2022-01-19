@@ -78,25 +78,41 @@ class Main extends Component {
   };
 
   callAPI = (e) => {
-    console.log("hi")
+    console.log("hi");
     const headers = {
       "Content-Type": "application/json;charset=UTF-8",
     };
     let formData = e;
-    axios.post("http://localhost:9000/nasaAPI", formData, { headers: headers })
-      .then((res) => {
-        let apodData = res.data;
-        console.log(apodData)
-        localStorage.setItem("apodData", JSON.stringify(apodData))
+    Promise.all([
+      axios.post("http://localhost:9000/nasaAPI", formData, {
+        headers: headers,
+      }),
+      axios.post("http://localhost:9000/nasaImagesAPI", formData, {
+        headers: headers,
+      }),
+    ])
 
-        this.setState({
-          nasaAPIData: {
-            apodData:apodData
+      .then((res) => {
+        console.log(res)
+        let apodData = res[0].data;
+        let nasaImagesData = res[1].data
+        console.log(apodData);
+        console.log(nasaImagesData)
+        localStorage.setItem("apodData", JSON.stringify(apodData));
+        localStorage.setItem("nasaImagesData", JSON.stringify(nasaImagesData))
+
+        this.setState(
+          {
+            nasaAPIData: {
+              apodData: apodData,
+              nasaImagesData: nasaImagesData,
+            },
+          },
+          () => {
+            console.log(this.state);
+            console.log(localStorage);
           }
-        }, () => {
-            console.log(this.state)
-            console.log(localStorage)
-        })
+        );
       })
       .catch((error) => {
         console.log(error.response);
@@ -294,7 +310,7 @@ class Main extends Component {
               )}
 
         {/* map over nasaImagesData to render components */}
-        {/* {isHome
+        {isHome
           ? nasaImagesData.map(
               ({ name, date, explanation, copyright, imageURL, id, liked }) => (
                 <Post
@@ -340,7 +356,7 @@ class Main extends Component {
                     handleLikedPhoto={this.handleLikedPhoto}
                   ></Post>
                 )
-              )} */}
+              )}
 
         {/* map over roverData to render components */}
         {/* {isHome
